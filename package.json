@@ -1,0 +1,33 @@
+{
+  "name": "souschefdobbie",
+  "version": "1.0.0",
+  "description": "Introduction:\r Welcome to Sous Chef Dobbie, your most (somewhat) useful cooking assistant, he can only help from the sidelines with recipe knowledge.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bluz225/SousChefDobbie.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/bluz225/SousChefDobbie/issues"
+  },
+  "homepage": "https://github.com/bluz225/SousChefDobbie#readme",
+  "dependencies": {
+    "axios": "^0.27.2",
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.6",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.0.1",
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "express-ejs-layouts": "^2.5.1",
+    "pg": "^8.7.3",
+    "rowdy-logger": "^1.0.2",
+    "sequelize": "^6.20.1"
+  }
+}
