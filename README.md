@@ -76,9 +76,9 @@ Planned RESTful Routes:
 | GET | /recipes/saved |\(Read\) | Search and show saved recipes |
 | GET | /recipes/view |\(Read\) | show recipe details |
 
-## Planned User Process Map:
+## Planned MVP User Process Map:
 ![Planned Process Map](./Planning/planningMVP-UserProcessMap.PNG)
 
-## Table Relations:
+## Planned MVP ERD:
 ![ERD](./Planning/planningMVP-ERD.PNG)
 
