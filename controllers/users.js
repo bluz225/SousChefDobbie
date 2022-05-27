@@ -21,7 +21,11 @@ router.get("/signup", function(req,res){
 
 router.post("/signup", async function(req,res){
     // res.render("profile/showprofile.ejs")
-
+    try {
+        
+    } catch (error) {
+        
+    }
 
     res.redirect("/profile")
 })
