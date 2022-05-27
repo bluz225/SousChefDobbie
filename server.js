@@ -4,6 +4,7 @@ require("dotenv").config()
 const express = require('express')
 const rowdy = require('rowdy-logger')
 const cookieParser = require("cookie-parser")
+
 // app config
 const PORT = process.env.PORT || 9000
 const app = express()
@@ -18,9 +19,16 @@ app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+//render home page
+app.get("/", function(req,res){
+    res.render("index.ejs")
+})
 
+// controller middleware
+app.use('/users', require('./controllers/users'))
+app.use('/profile', require('./controllers/profile'))
 
-//listen
+//listen to port
 app.listen(PORT, function() {
     console.log(`🔥🔥🔥 VEGETA: ITS OVER ${PORT} 🔥🔥🔥`)
 })

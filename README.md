@@ -80,5 +80,5 @@ Planned RESTful Routes:
 ![Planned Process Map](./Planning/planningMVP-UserProcessMap.PNG)
 
 ## Table Relations:
-![Planned Table Relations](./Planning/planningMVP-TableRelations.png)
+![ERD](./Planning/planningMVP-ERD.PNG)
 
