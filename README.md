@@ -56,7 +56,7 @@ Wire Frames:
 ![Saved Recipes Page](./Planning/Wireframes-savedrecipies.jpg)
 
 ## View Recipe Page
-![View Recipe Page](./Planning/Wireframes-viewrecipes.jpeg)
+![View Recipe Page](./Planning/Wireframes-viewrecipes.jpg)
 
 
 Planned RESTful Routes:
