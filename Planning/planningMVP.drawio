@@ -101,7 +101,7 @@
         </mxGraphModel>
     </diagram>
     <diagram id="jPyyAmvr9jXWo_SONWo_" name="MVP Table Relations Map">
-        <mxGraphModel dx="579" dy="-628" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="1214" dy="-545" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="jBtd-i34otjGaTKZJxUd-0"/>
                 <mxCell id="jBtd-i34otjGaTKZJxUd-1" parent="jBtd-i34otjGaTKZJxUd-0"/>
@@ -333,7 +333,7 @@
                         <mxRectangle width="29" height="30" as="alternateBounds"/>
                     </mxGeometry>
                 </mxCell>
-                <mxCell id="jBtd-i34otjGaTKZJxUd-90" value="carb" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;pointerEvents=1;" parent="jBtd-i34otjGaTKZJxUd-88" vertex="1">
+                <mxCell id="jBtd-i34otjGaTKZJxUd-90" value="calories" style="shape=partialRectangle;html=1;whiteSpace=wrap;connectable=0;fillColor=none;top=0;left=0;bottom=0;right=0;align=left;spacingLeft=6;overflow=hidden;pointerEvents=1;" parent="jBtd-i34otjGaTKZJxUd-88" vertex="1">
                     <mxGeometry x="29" width="101" height="30" as="geometry">
                         <mxRectangle width="101" height="30" as="alternateBounds"/>
                     </mxGeometry>

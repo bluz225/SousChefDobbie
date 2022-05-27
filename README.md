@@ -29,6 +29,8 @@ Technologies Anticipated:
 - html
 - javascript
 - dotenv
+- Spoonacular API
+- USDA API
 
 Challenges Anticipated:
 - querying APIs and matching them
