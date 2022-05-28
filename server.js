@@ -19,6 +19,25 @@ app.use(require('express-ejs-layouts'))
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 
+//auth middlware
+app.use( async (req,res,next)=>{
+    try {
+      if (req.cookies.userId) {
+        const userId = req.cookies.userId
+        const decryptedId = cryptoJS.AES.decrypt(userId,process.env.ENC_KEY).toString(cryptoJS.enc.Utf8)
+        const user = await db.user.findByPk(decryptedId)
+        res.locals.user = user
+      } else {
+        res.locals.user = null
+      }
+    } catch (error) {
+      console.warn(error)
+    }  finally {
+      next()
+    }
+  })
+
+
 //render home page
 app.get("/", function(req,res){
     res.render("index.ejs")
@@ -27,6 +46,7 @@ app.get("/", function(req,res){
 // controller middleware
 app.use('/users', require('./controllers/users'))
 app.use('/profile', require('./controllers/profile'))
+app.use('/recipes', require('./controllers/recipes'))
 
 //listen to port
 app.listen(PORT, function() {
