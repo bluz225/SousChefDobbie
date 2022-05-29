@@ -10,11 +10,14 @@ sequelize model:create --name savedrecipe --attributes title:string,summary:text
 sequelize model:create --name savedrecipesIngredients --attributes savedrecipeId:integer,ingredientId:integer
 
 #sequelize command for creating ingredients model
-sequelize model:create --name ingredient --attributes name:string,protein:float,
+sequelize model:create --name ingredient --attributes name:string,protein:float,carb:float,calories:float,fat:float,incatId:integer,gtinUpc:integer,brandName:string,fdcId:integer,servingsize:float,servingsizeunit:string
 
 #sequelize command for creating savedrecipesCuisines model
+sequelize model:create --name savedrecipesCuisines --attributes savedrecipeId:integer,cuisineId:integer
 
 #sequelize command for creating cuisine model
+sequelize model:create --name cuisine --attributes type:string
 
-#sequelize command for creating ingredient category model
+#sequelize command for creating incat(ingredient category) model
+sequelize model:create --name incat --attributes type:string,ingredientId:integer
 
