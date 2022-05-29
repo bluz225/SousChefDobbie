@@ -1,0 +1,22 @@
+<h2><%=viewRecipeResult.title%></h2>
+
+<form method="POST" action="">
+    <input name="recipe" value="<%=viewRecipeResult%>" hidden>
+    <button type="submit">Add to favorites</button>
+</form>
+
+<img src="<%=viewRecipeResult.image%>" alt="image of <%=viewRecipeResult.title%>">
+
+<h2>Recipe Summary:</h2>
+<p><%=viewRecipeResult.summary%></p>
+
+<h2>Ingredients:</h2>
+<ul>
+    <% viewRecipeResult.extendedIngredients.forEach(function(ingredient){%> 
+        <li><%=ingredient.name%>: <%=ingredient.amount%> <%=ingredient.unit%></li>
+    <% }) %> 
+      
+</ul>
+
+<h2>Cooking instructions:</h2>
+<%=viewRecipeResult.instructions%>

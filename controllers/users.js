@@ -5,11 +5,12 @@ let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 
-// login routes
+// login get routes
 router.get("/login", function(req,res){
     res.render("users/login.ejs", {msg: null})
 })
 
+// login post route
 router.post("/login", async function(req,res){
     // res.redirect("/profile")
 
@@ -44,11 +45,12 @@ router.post("/login", async function(req,res){
     }
 })
 
-// signup routes
+// signup get routes
 router.get("/signup", function(req,res){
     res.render("users/signup.ejs")
 })
 
+// signup post route
 router.post("/signup", async function(req,res){
     // res.render("profile/showprofile.ejs")
     try {
@@ -78,6 +80,7 @@ router.post("/signup", async function(req,res){
     }
 })
 
+// logout route
 router.get("/logout",(req,res)=>{
     // clear the cookie from storage
     // redirect to root

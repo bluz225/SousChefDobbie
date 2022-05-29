@@ -1,0 +1,15 @@
+<h2>Search for a new recipe</h2>
+
+<p>Searched Term: <%= searchedRecipe %></p>
+
+<h2>populate list of recipes based on search API</h2>
+
+
+<% searchResults.forEach(result => { %>
+    <div class="search-results">
+        <div>
+            <img src="<%=result.image%>" alt="Image of <%=result.title%>">
+        </div>
+        <p><a href="/recipes/view/<%=result.id%>"><%=result.title%></a></p>
+    </div>
+<%}) %> 

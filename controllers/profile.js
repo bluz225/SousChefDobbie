@@ -5,6 +5,7 @@ let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 
+// show profile page route
 router.get("/", function(req,res){
     if (!res.locals.user){
         res.render("users/login.ejs", {msg: "please login to continue"})
@@ -14,6 +15,7 @@ router.get("/", function(req,res){
     }
 })
 
+// edit profile route
 router.get("/edit", function(req,res){
     if (!res.locals.user){
         res.render("users/login.ejs", {msg: "please login to continue"})
@@ -22,14 +24,5 @@ router.get("/edit", function(req,res){
         res.render("profile/editprofile.ejs")
     }
 })
-
-// function verifyLocalUser(){
-//     if (!res.locals.user){
-//         res.render("users/login.ejs", {msg: "please login to continue"})
-//         return
-//     } else {
-//         res.render("profile/editprofile.ejs")
-//     }
-// }
 
 module.exports = router

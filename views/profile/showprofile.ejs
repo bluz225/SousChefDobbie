@@ -2,3 +2,14 @@
 
 
 <p>Profile PAGE HERE <%= user.firstName %></p>
+
+<!-- <a href="/recipes/saved">Saved Recipes</a> -->
+
+<form method="POST" action="/recipes/search">
+    <label for="searchInput">Search by Recipe Name</label>
+    <input id="searchInput" type="text" name="searchInput">
+
+    <button type="submit">Search!</button>
+</form>
+
+<!-- <a href="/recipes/search">Search for new Recipes</a> -->
