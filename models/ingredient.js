@@ -11,6 +11,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      models.ingredient.belongsToMany(models.savedrecipe, {through: "savedrecipesIngredients"})
+      models.ingredient.hasMany(models.incat)
     }
   }
   ingredient.init({
