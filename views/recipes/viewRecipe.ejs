@@ -2,10 +2,11 @@
 
 <form method="POST" action="/recipes/saved">
     <input name="recipe" value="<%= JSON.stringify(viewRecipeResult)%>" hidden>
+    <input name="imgURL" value="<%= JSON.stringify(searchedResult.image)%>" hidden>
     <button type="submit">Add to favorites</button>
 </form>
 
-<img src="<%=viewRecipeResult.image%>" alt="image of <%=viewRecipeResult.title%>">
+<img src="<%=searchedResult.image%>" alt="image of <%=viewRecipeResult.title%>">
 
 <h2>Recipe Summary:</h2>
 <p><%=viewRecipeResult.summary%></p>

@@ -10,6 +10,10 @@
         <div>
             <img src="<%=result.image%>" alt="Image of <%=result.title%>">
         </div>
-        <p><a href="/recipes/view/<%=result.id%>"><%=result.title%></a></p>
+        <p><%=result.title%></p>
+        <form method="POST" action="/recipes/view">
+            <input hidden name="result" value="<%= JSON.stringify(result) %>">
+            <button type="submit">View this Recipe!</button>
+        </form>
     </div>
 <%}) %> 

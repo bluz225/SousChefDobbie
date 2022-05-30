@@ -1,19 +1,15 @@
-<h2>Saved Recipies</h2>
+<h2>Saved Recipies for <%=user.firstName%></h2>
 
 <h2>list of saved recipies here (LINKS) and picture?</h2>
+
 
 <% allsavedrecipes.forEach(function(recipe){ %>
     <div>
         <div>
-            <img src="<%=recipe.imageurl%>">
+            <img src=<%=recipe.dataValues.imageurl%>>
         </div>
         <div>
-            <p><%=recipe.title%></p>
-            <ul>
-                <%recipe.cuisines.forEach(function(cuisine){%>
-                    <li><%=cuisine.type%></li>
-                <% }) %>
-            </ul>
+            <p><%=recipe.dataValues.title%></p>
         </div>
     </div>
 <% }) %> 

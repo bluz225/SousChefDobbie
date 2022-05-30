@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       fdcId: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       servingsize: {
         type: Sequelize.FLOAT

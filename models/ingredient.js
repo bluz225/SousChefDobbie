@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
     incatId: DataTypes.INTEGER,
     gtinUpc: DataTypes.STRING,
     brandName: DataTypes.STRING,
-    fdcId: DataTypes.STRING,
+    fdcId: DataTypes.INTEGER,
     servingsize: DataTypes.FLOAT,
     servingsizeunit: DataTypes.STRING
   }, {
