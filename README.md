@@ -2,7 +2,7 @@
 
 Introduction:
 Welcome to Sous Chef Dobbie, your most (somewhat) useful cooking assistant, he can only help from the sidelines with recipe knowledge. 
-
+ 
 MVP Technical Requirements:
 - Must have user creation feature
 - Must have user sign in feature
