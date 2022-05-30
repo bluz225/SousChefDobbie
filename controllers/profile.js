@@ -4,16 +4,27 @@ let db = require('../models')
 let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
-const cf = require("../customfunctions.js")
 
 // show profile page route
 router.get("/", function(req,res){
-    cf.verifylogincookie(res,"profile/showprofile.ejs")
+    if (!res.locals.user){
+        res.render("users/login.ejs", {msg: "please login to continue"})
+        return
+    } else {
+        res.render("profile/showprofile.ejs")
+    }
 })
 
 // edit profile route
 router.get("/edit", function(req,res){
-    cf.verifylogincookie(res,"profile/editprofile.ejs")
+    if (!res.locals.user){
+        res.render("users/login.ejs", {msg: "please login to continue"})
+        return
+    } else {
+        res.render("profile/editprofile.ejs")
+    }
+    
+
 })
 
 module.exports = router

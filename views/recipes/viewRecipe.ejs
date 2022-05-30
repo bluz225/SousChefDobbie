@@ -1,7 +1,7 @@
 <h2><%=viewRecipeResult.title%></h2>
 
-<form method="POST" action="">
-    <input name="recipe" value="<%=viewRecipeResult%>" hidden>
+<form method="POST" action="/recipes/saved">
+    <input name="recipe" value="<%= JSON.stringify(viewRecipeResult)%>" hidden>
     <button type="submit">Add to favorites</button>
 </form>
 
