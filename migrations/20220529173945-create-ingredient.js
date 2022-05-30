@@ -12,28 +12,28 @@ module.exports = {
         type: Sequelize.STRING
       },
       protein: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       carb: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       calories: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       fat: {
-        type: Sequelize.FLOAT
+        type: Sequelize.STRING
       },
       incatId: {
         type: Sequelize.INTEGER
       },
       gtinUpc: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       brandName: {
         type: Sequelize.STRING
       },
       fdcId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.STRING
       },
       servingsize: {
         type: Sequelize.FLOAT

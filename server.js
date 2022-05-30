@@ -21,22 +21,21 @@ app.use(cookieParser())
 
 //auth middlware
 app.use( async (req,res,next)=>{
-    try {
-      if (req.cookies.userId) {
-        const userId = req.cookies.userId
-        const decryptedId = cryptoJS.AES.decrypt(userId,process.env.ENC_KEY).toString(cryptoJS.enc.Utf8)
-        const user = await db.user.findByPk(decryptedId)
-        res.locals.user = user
-      } else {
-        res.locals.user = null
-      }
-    } catch (error) {
-      console.warn(error)
-    }  finally {
-      next()
+  try {
+    if (req.cookies.userId) {
+      const userId = req.cookies.userId
+      const decryptedId = cryptoJS.AES.decrypt(userId,process.env.ENC_KEY).toString(cryptoJS.enc.Utf8)
+      const user = await db.user.findByPk(decryptedId)
+      res.locals.user = user
+    } else {
+      res.locals.user = null
     }
-  })
-
+  } catch (error) {
+    console.warn(error)
+  }  finally {
+    next()
+  }
+})
 
 //render home page
 app.get("/", function(req,res){

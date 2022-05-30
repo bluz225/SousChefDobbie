@@ -17,14 +17,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   ingredient.init({
     name: DataTypes.STRING,
-    protein: DataTypes.FLOAT,
-    carb: DataTypes.FLOAT,
-    calories: DataTypes.FLOAT,
-    fat: DataTypes.FLOAT,
+    protein: DataTypes.STRING,
+    carb: DataTypes.STRING,
+    calories: DataTypes.STRING,
+    fat: DataTypes.STRING,
     incatId: DataTypes.INTEGER,
-    gtinUpc: DataTypes.INTEGER,
+    gtinUpc: DataTypes.STRING,
     brandName: DataTypes.STRING,
-    fdcId: DataTypes.INTEGER,
+    fdcId: DataTypes.STRING,
     servingsize: DataTypes.FLOAT,
     servingsizeunit: DataTypes.STRING
   }, {
