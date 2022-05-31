@@ -4,6 +4,7 @@ require("dotenv").config()
 const express = require('express')
 const rowdy = require('rowdy-logger')
 const cookieParser = require("cookie-parser")
+const methodOverride = require("method-override");
 
 // app config
 const PORT = process.env.PORT || 9000
@@ -11,6 +12,7 @@ const app = express()
 app.set('view engine', 'ejs')
 const db = require("./models")
 const cryptoJS = require("crypto-js")
+app.use(methodOverride("_method"));
 
 // middlewares
 const rowdyRes = rowdy.begin(app)

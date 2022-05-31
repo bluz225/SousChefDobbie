@@ -1,14 +1,14 @@
 
 
 <nav class="my-5">
-    <ul class="flex flex-row justify-around">
+    <ul class="flex flex-row justify-around divide-y divide-blue-200">
         <!-- if the user is logged in -->
         <% if (user) { %>
             <li><a href="/profile">Profile</a></li>
             <li><a href="/recipes/saved">Saved Recipes</a></li>
             <li><a href="/users/logout">Log Out</a></li>
         <%} else {%>
-            // <!-- if the user is not logged in -->
+            <!-- if the user is not logged in -->
             <li><a href="/users/signup">Sign Up</a></li>
             <li><a href="/users/login">Log In</a></li>
         <%}%>
