@@ -11,8 +11,8 @@
         <div>
             <p><%=recipe.dataValues.title%></p>
         </div>
-        <form method="" action="">
-            
+        <form method="POST" action="/recipes/saved/<%=recipe.dataValues.id%>?_method=DELETE">
+            <button type="submit">Delete saved recipe</button>
         </form>
     </div>
 <% }) %> 

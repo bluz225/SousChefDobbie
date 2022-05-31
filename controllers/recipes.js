@@ -5,6 +5,8 @@ const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 const axios = require("axios")
 const ingredient = require('../models/ingredient')
+const { sequelize } = require('../models')
+const { Op } = require("sequelize");
 
 router.post("/search", async function (req, res) {
     try {
@@ -167,8 +169,24 @@ router.get("/saved", async function(req,res){
     }
 })
 
-router.delete("/saved", async function(req,res){
+router.delete("/saved/:id", async function(req,res){
+    console.log("saved recipe id:",req.params.id)
+    let user = await db.user.findByPk(res.locals.user.dataValues.id)
+    // user = JSON.parse(JSON.stringify(user))
+    const recipe = await db.savedrecipe.findByPk(req.params.id)
+    const ingredients = await db.ingredient.findAll()
+    recipe.removeIngredient(ingredients)
+
+    await db.savedrecipe.destroy({
+        where: {
+            id: req.params.id
+        }
+    })
+
+    res.redirect("/recipes/saved")
+    // console.log(ingredients[0].dataValues.savedrecipes)
     
+
 })
 
 module.exports = router
