@@ -6,23 +6,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sous Chef Dobbie!</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <!-- <link href="/dist/output.css" rel="stylesheet"> -->
 </head>
 <body>
-  <nav>
-    <ul>
-        <!-- if the user is logged in -->
-        <li><a href="/profile">Profile</a></li>
-        <li><a href="/users/logout">Log Out</a></li>
-        <!-- if the user is not logged in -->
-        <li><a href="/users/signup">Sign Up</a></li>
-        <li><a href="/users/login">Log In</a></li>
-        <li><a href="/recipes/saved">Saved Recipes</a></li>
-    </ul>
-  </nav>
+  <%- include('partials/header') %>
+  <%- include('partials/navbar') %>
 
   <main>
-    <h1>Welcome to Sous Chef Dobbie!</h1>
-    <p>No socks allowed</p>
+
     <%- body %> 
   </main>
   

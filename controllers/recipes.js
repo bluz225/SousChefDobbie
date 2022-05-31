@@ -4,6 +4,7 @@ let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 const axios = require("axios")
+const ingredient = require('../models/ingredient')
 
 router.post("/search", async function (req, res) {
     try {
@@ -152,22 +153,14 @@ router.post("/saved", async function (req, res) {
 
 router.get("/saved", async function(req,res){
     try {
-        // original MVP working user-saved recipe setup
-        // const allsavedrecipes = await db.user.findAll({
-        //     where :{
-        //         id: res.locals.user.dataValues.id
-        //     },include:[db.savedrecipe]})
-
-
         const allsavedrecipes = await db.user.findAll({
             where :{
                 id: res.locals.user.dataValues.id
-            },include:[db.savedrecipe]})
-
-            
-
-
-        console.log(allsavedrecipes[0].dataValues.savedrecipes)
+            },include:[{
+                all:true, nested: true
+            }]
+        })
+        // console.log(allsavedrecipes[0].dataValues.savedrecipes[0].ingredients[0])
         res.render("recipes/savedRecipes.ejs", {allsavedrecipes:allsavedrecipes[0].dataValues.savedrecipes})
     } catch (error) {
         console.warn(error)
