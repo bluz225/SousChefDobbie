@@ -14,6 +14,7 @@ module.exports = (sequelize, DataTypes) => {
       models.savedrecipe.belongsTo(models.user)
       models.savedrecipe.belongsToMany(models.ingredient, {through: "savedrecipesIngredients"})
       models.savedrecipe.belongsToMany(models.cuisine, {through: "savedrecipesCuisines"})
+      models.ingredient.hasMany(models.amount)
     }
   }
   savedrecipe.init({

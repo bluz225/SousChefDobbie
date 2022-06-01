@@ -21,7 +21,8 @@ sequelize model:create --name cuisine --attributes type:string
 #sequelize command for creating incat(ingredient category) model
 sequelize model:create --name incat --attributes type:string,ingredientId:integer
 
-
+#sequelize command for creating amount model
+sequelize model:create --name amount --attributes value:float,uom:string,savedrecipeId:integer
 
 #sequelize command for creating addingcolumn migration
 sequelize migration:create --name addcolumn

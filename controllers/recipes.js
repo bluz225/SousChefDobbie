@@ -36,6 +36,7 @@ router.post("/view", async function (req, res) {
 
 router.post("/saved", async function (req, res) {
     try {
+        // console.log(res.locals.user)
         const foundUser = await db.user.findOne({
             where: {
                 id: res.locals.user.dataValues.id
@@ -56,6 +57,8 @@ router.post("/saved", async function (req, res) {
             osrecipeId: recipeToSave.id,
             userId: res.locals.user.dataValues.id
         })
+
+        console.warn("created recipe Id:",saveRecipe.dataValues.id)
         
         // search for cuisine(s) and create
         recipeToSave.cuisines.forEach(async function(cuisine){
@@ -142,12 +145,29 @@ router.post("/saved", async function (req, res) {
                     servingsize: usdaIng.servingSize,
                     servingsizeunit: usdaIng.servingSizeUnit
                 })
-                
+                console.warn("ingredient name",ingredientsToSearch[i].name)
+                console.warn("ingredient amt",ingredientsToSearch[i].amount)
+                console.warn("ingredient unit",ingredientsToSearch[i].unit)
+                console.warn("created ing Id",createIng.dataValues.id)
+
+                const createAmountRec = await db.amount.create({
+                    value:ingredientsToSearch[i].amount,
+                    uom: ingredientsToSearch[i].unit,
+                    savedrecipeId: saveRecipe.dataValues.id,
+                    ingredientId: createIng.dataValues.id
+                })
+
                 // attached ingredient to saved recipe M:M
                 saveRecipe.addIngredient(createIng)
             } else {
                 // attached ingredient to saved recipe M:M
-                saveRecipe.addIngredient(dbfoundIngredient)              
+                saveRecipe.addIngredient(dbfoundIngredient)
+                const createfoundAmountRec = await db.amount.create({
+                    value:ingredientsToSearch[i].amount,
+                    uom: ingredientsToSearch[i].unit,
+                    savedrecipeId: saveRecipe.dataValues.id,
+                    ingredientId: dbfoundIngredient.dataValues.id
+                })                
             }
         }
         res.redirect("saved")
@@ -199,9 +219,19 @@ router.get("/editsaved/:id", async function(req,res){
         }]
     })
     const editRecipeJSON = JSON.parse(JSON.stringify(editRecipe))
+    delete editRecipeJSON["id"]
+    delete editRecipeJSON["password"]
+    delete editRecipeJSON["createdAt"]
+    delete editRecipeJSON["updatedAt"]
+    
     console.log(editRecipeJSON)
-    res.render("recipes/editSavedRecipe.ejs")
+    res.render("recipes/editSavedRecipe.ejs", {recipedata:editRecipeJSON})
 })
 
+router.put("/editsaved/", async function(req,res){
+    console.log(req.body)
+
+    res.send("meep")
+})
 
 module.exports = router
