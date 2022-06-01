@@ -219,19 +219,53 @@ router.get("/editsaved/:id", async function(req,res){
         }]
     })
     const editRecipeJSON = JSON.parse(JSON.stringify(editRecipe))
-    delete editRecipeJSON["id"]
-    delete editRecipeJSON["password"]
-    delete editRecipeJSON["createdAt"]
-    delete editRecipeJSON["updatedAt"]
+    delete editRecipeJSON.user["id"]
+    delete editRecipeJSON.user["password"]
+    delete editRecipeJSON.user["createdAt"]
+    delete editRecipeJSON.user["updatedAt"]
     
     console.log(editRecipeJSON)
     res.render("recipes/editSavedRecipe.ejs", {recipedata:editRecipeJSON})
 })
 
 router.put("/editsaved/", async function(req,res){
-    console.log(req.body)
+    try {
+        // console.log(req.body)
+        // const arr = Object.keys(req.body)
+        
+        const recipeToEdit = await db.savedrecipe.findByPk(req.body.recipeId)
+        await recipeToEdit.set({
+            title: req.body.title,
+            summary: req.body.summary,
+            instructions: req.body.instructions
+        })
+        await recipeToEdit.save()
 
-    res.send("meep")
+        const dataArr = Object.entries(req.body)
+
+        const ingredientsArr = dataArr.filter(function(data){
+            const searchData = "ingredient"
+            return data[0].includes(searchData)
+        })
+        
+        console.log(ingredientsArr)
+        
+        const cuisinesArr = dataArr.filter(function(data){
+            const searchData = "cuisine"
+            return data[0].includes(searchData)
+        })
+        // console.log(cuisinesArr)
+    
+        // let ingredientsArr = dataArr.filter(function(data){
+        //     console.log(data)
+        //     return 
+        // })
+        // console.log(ingredientsArr)
+        
+        res.redirect(`/recipes/editsaved/${req.body.recipeId}`)
+    } catch (error) {
+        console.warn(error)
+    }
 })
 
 module.exports = router

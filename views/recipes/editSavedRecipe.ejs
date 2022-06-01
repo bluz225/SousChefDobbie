@@ -21,18 +21,23 @@
     </ul>
     <br>
     <h5>Ingredients:</h5>
-    <ul>
+    <ul id="editRecipeIngredientsUl">
     <% recipedata.ingredients.forEach(function(ingredient){ %>
         <li>
             <%=ingredient.name%>
-            <input name="<%=ingredient.amount.id%>" value="<%=ingredient.amount.value%>">
-            <input name="<%=ingredient.amount.id%>" value="<%=ingredient.amount.uom%>">
+            <input name="ingredientexist<%=ingredient.id%>/amountvalue<%=ingredient.amount.id%>" value="<%=ingredient.amount.value%>">
+            <input name="ingredientexist<%=ingredient.id%>/amountuom<%=ingredient.amount.id%>" value="<%=ingredient.amount.uom%>">
         </li>
     <%})%>
+    
     </ul>
-    <br>
+    <button type="button" id="editRecipeAddIngredientBtn">Add an Ingredient!</button>
+    <br><br>
     <label for="instructions">instructions:</label>
     <br>
     <textarea id="instructions" name="instructions"><%=recipedata.instructions%></textarea>
     <button type="submit">Save Recipe</button>
+
 </form>
+
+<script src="/js/editSavedRecipeScript.js"></script> 
