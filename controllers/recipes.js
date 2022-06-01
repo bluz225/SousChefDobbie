@@ -70,6 +70,7 @@ router.post("/saved", async function (req, res) {
 
         // ping USDA api per ingredient and find/create ingredient in ingredients table
         const ingredientsToSearch = recipeToSave.extendedIngredients
+
         for (i = 0; i < ingredientsToSearch.length; i++) {
             // check if ingredient has already been saved to ingredients table before
             let dbfoundIngredient = await db.ingredient.findOne({
@@ -80,7 +81,7 @@ router.post("/saved", async function (req, res) {
             // if ingredient is not found
             if (!dbfoundIngredient) {
                 //USDA API
-                let usdaSearchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.USDA_API_KEY}&query=${ingredientsToSearch[i].nameClean}`
+                let usdaSearchURL = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.USDA_API_KEY}&query=${ingredientsToSearch[i].nameClean}&pageSize=1`
                 let usdaIng = await axios.get(usdaSearchURL)
                 usdaIng = usdaIng.data.foods[0]
                 // console.log("fdcId:",usdaIng.fdcId)
@@ -88,6 +89,8 @@ router.post("/saved", async function (req, res) {
                 // console.log(ingredientsToSearch[i].nameClean,":", usdaIng)
                 // console.log(ingredientsToSearch[i].nameClean,":", foodnutrients)
                 
+
+
                 protein = foodnutrients.filter(nutrient => nutrient.nutrientNumber === '203')
                 if (protein.length === 0) {
                     protein = `0 G`
@@ -186,6 +189,19 @@ router.delete("/saved/:id", async function(req,res){
     res.redirect("/recipes/saved")
 })
 
+router.get("/editsaved/:id", async function(req,res){
+    console.log("recipe id:",req.params.id)
+    const editRecipe = await db.savedrecipe.findOne({
+        where:{
+            id:req.params.id
+        },include:[{
+            all:true, nested: true
+        }]
+    })
+    const editRecipeJSON = JSON.parse(JSON.stringify(editRecipe))
+    console.log(editRecipeJSON)
+    res.render("recipes/editSavedRecipe.ejs")
+})
 
 
 module.exports = router

@@ -9,8 +9,9 @@
             <img src=<%=recipe.dataValues.imageurl%>>
         </div>
         <div>
-            <p><%=recipe.dataValues.title%></p>
+            <p><a href="/recipes/editsaved/<%=recipe.dataValues.id%>"><%=recipe.dataValues.title%></a></p>
         </div>
+
         <form method="POST" action="/recipes/saved/<%=recipe.dataValues.id%>?_method=DELETE">
             <button type="submit">Delete saved recipe</button>
         </form>
