@@ -14,6 +14,8 @@ const db = require("./models")
 const cryptoJS = require("crypto-js")
 app.use(methodOverride("_method"));
 
+app.use(express.static("public"))
+
 // middlewares
 const rowdyRes = rowdy.begin(app)
 app.use(require('express-ejs-layouts'))

@@ -3,3 +3,36 @@
 
 <p>Profile Form HERE <%= user.firstName %></p>
 
+<form method="POST" action="/profile/edit?_method=PUT">
+    <label for="firstName">Change your First Name:</label>
+    <input id="firstName" type="text" name="firstName" value="<%=user.firstName%>" required>
+
+    <label for="lastName">Change your Last Name:</label>
+    <input id="lastName" type="text" name="lastName" value="<%=user.lastName%>" required>
+
+    <label for="email">Change your Email:</label>
+    <input id="email" type="email" name="email" value="<%=user.email%>" required>
+    
+    <button type="submit">Make the change</button>
+
+</form>
+
+
+<% if (msg != null) { %>
+    <p><%= msg %></p>
+<% } %>    
+
+
+<p>Change your password</p>
+<form method="POST" action="/profile/changepassword?_method=PUT">
+    <label for="cpw">Type in your password:</label>
+    <input id="cpw" type="password" name="cpw" required>
+
+    <label for="pw1">Type in your password:</label>
+    <input id="pw1" type="password" name="pw1" required>
+    
+    <label for="pw2">Re-Type in your password:</label>
+    <input id="pw2" type="password" name="pw2" required>
+    
+    <button type="submit">Change your password</button>
+</form>

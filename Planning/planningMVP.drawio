@@ -1,6 +1,6 @@
 <mxfile host="65bd71144e">
     <diagram id="ZI4vKRLXLDRPjRg_gG8u" name="MVP-ERD">
-        <mxGraphModel dx="1299" dy="-483" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+        <mxGraphModel dx="604" dy="-597" grid="1" gridSize="10" guides="1" tooltips="1" connect="0" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
             <root>
                 <mxCell id="0"/>
                 <mxCell id="1" parent="0"/>
@@ -355,7 +355,7 @@
                     </mxGeometry>
                 </mxCell>
                 <mxCell id="67" value="Cuisine(s)" style="shape=table;startSize=30;container=1;collapsible=0;childLayout=tableLayout;fixedRows=1;rowLines=0;fontStyle=1;align=center;pointerEvents=1;" parent="1" vertex="1">
-                    <mxGeometry x="512.5" y="1670" width="115" height="100" as="geometry"/>
+                    <mxGeometry x="530" y="1590" width="115" height="100" as="geometry"/>
                 </mxCell>
                 <mxCell id="68" value="" style="shape=partialRectangle;html=1;whiteSpace=wrap;collapsible=0;dropTarget=0;pointerEvents=1;fillColor=none;top=0;left=0;bottom=1;right=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;" parent="67" vertex="1">
                     <mxGeometry y="30" width="115" height="30" as="geometry"/>

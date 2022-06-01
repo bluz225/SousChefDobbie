@@ -162,7 +162,7 @@ router.get("/saved", async function(req,res){
                 all:true, nested: true
             }]
         })
-        // console.log(allsavedrecipes[0].dataValues.savedrecipes[0].ingredients[0])
+        console.log(allsavedrecipes[0].dataValues.savedrecipes[0])
         res.render("recipes/savedRecipes.ejs", {allsavedrecipes:allsavedrecipes[0].dataValues.savedrecipes})
     } catch (error) {
         console.warn(error)
@@ -184,9 +184,8 @@ router.delete("/saved/:id", async function(req,res){
     })
 
     res.redirect("/recipes/saved")
-    // console.log(ingredients[0].dataValues.savedrecipes)
-    
-
 })
+
+
 
 module.exports = router
