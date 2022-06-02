@@ -224,15 +224,15 @@ router.get("/editsaved/:id", async function(req,res){
     delete editRecipeJSON.user["createdAt"]
     delete editRecipeJSON.user["updatedAt"]
     
-    console.log(editRecipeJSON)
+    // console.log(editRecipeJSON)
     res.render("recipes/editSavedRecipe.ejs", {recipedata:editRecipeJSON})
 })
 
 router.put("/editsaved/", async function(req,res){
     try {
-        // console.log(req.body)
-        // const arr = Object.keys(req.body)
-        
+        console.log(req.body)
+
+        // updates title, summary and instructions
         const recipeToEdit = await db.savedrecipe.findByPk(req.body.recipeId)
         await recipeToEdit.set({
             title: req.body.title,
@@ -241,26 +241,15 @@ router.put("/editsaved/", async function(req,res){
         })
         await recipeToEdit.save()
 
-        const dataArr = Object.entries(req.body)
-
-        const ingredientsArr = dataArr.filter(function(data){
-            const searchData = "ingredient"
-            return data[0].includes(searchData)
-        })
-        
-        console.log(ingredientsArr)
-        
-        const cuisinesArr = dataArr.filter(function(data){
-            const searchData = "cuisine"
-            return data[0].includes(searchData)
-        })
-        // console.log(cuisinesArr)
-    
-        // let ingredientsArr = dataArr.filter(function(data){
-        //     console.log(data)
-        //     return 
-        // })
-        // console.log(ingredientsArr)
+        //update all ingredients amount/uom
+        // for (i=0;i<req.body.ingredientexistingredientId.length;i++){
+        //     const amountToEdit = await db.amount.findByPk(req.body.ingredientexistamountId[i])
+        //     await amountToEdit.set({
+        //         value: req.body.ingredientexistamountvalue[i],
+        //         uom: req.body.ingredientexistamountuom[i]
+        //     })
+        //     await amountToEdit.save()
+        // }
         
         res.redirect(`/recipes/editsaved/${req.body.recipeId}`)
     } catch (error) {

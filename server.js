@@ -12,11 +12,11 @@ const app = express()
 app.set('view engine', 'ejs')
 const db = require("./models")
 const cryptoJS = require("crypto-js")
-app.use(methodOverride("_method"));
 
-app.use(express.static("public"))
 
 // middlewares
+app.use(methodOverride("_method"))
+app.use(express.static("public"))
 const rowdyRes = rowdy.begin(app)
 app.use(require('express-ejs-layouts'))
 // middleware for handling request bodies
