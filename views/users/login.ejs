@@ -1,18 +1,34 @@
-<h2>Users Login Page</h2>
+<% let my = 2 %>
 
+<div class="flex flex-col justify-center items-center h-[80vh]">
+    <div class="flex flex-col justify-evenly items-center h-80 w-100 bg-[#E5E5E5] border-3 rounded-3xl">
+        <div class="flex justify-center">
+            <img class="w-16 mx-3" src="https://rlv.zcache.com/dobby_cartoon_character_art_classic_round_sticker-r29f4846ad87d4bdd989d776e74e6b450_0ugmp_8byvr_704.webp">
+            <div>
+                <h2 class="my-1">Dobbie welcomes great sir back!</h2>
+                <p class="my-1 text-xs">"Psst... Did you bring a sock?"</p>
+            </div>
+        </div>
+        <form method="POST" action="/users/login" class="flex flex-col mx-4">
+            <div class="grid grid-rows-2 grid-cols-1">
+                <div class="my-<%=my%> grid grid-rows-1 grid-cols-2">
+                    <label class= "grid justify-center" for="email">Email:</label>
+                    <input class="border-2 rounded-md" id="email" type="email" name="email" placeholder="Enter your Email" required>
+                </div>
+                <div class="my-<%=my%> grid grid-rows-1 grid-cols-2">
+                    <label class= "grid justify-center" for="password">Password:</label>
+                    <input class="border-2 rounded-md" id="password" type="password" name="password" placeholder="Enter your Password" required>
+                </div>
+            </div>
+            <button class="my-7" type="submit">Log In!</button>
+        </form>
 
-<form method="POST" action="/users/login">
-    <label for="email">Email:</label>
-    <input id="email" type="email" name="email" placeholder="Enter your Email" required>
-    
-    <label for="password">Password:</label>
-    <input id="password" type="password" name="password" placeholder="Enter your Password" required>
-    
-    <button type="submit">Log In!</button>
-</form>
-
-<% if (msg) {%>
-    <div>
-        <p><%=msg%></p>
+        <% if (msg) {%>
+            <div>
+                <p>
+                    <%=msg%>
+                </p>
+            </div>
+            <%}%>
     </div>
-<%}%>
+</div>

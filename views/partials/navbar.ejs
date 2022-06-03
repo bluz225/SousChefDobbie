@@ -1,18 +1,27 @@
+<% let ulm = 6 %>
+<% let limx = 2 %>
 
-
-<nav class="">
-    <ul class="flex justify-around">
+<nav class="flex justify-between bg-slate-400 py-2">
+    <ul class="flex justify-around ml-<%=ulm%>">
         <!-- if the user is logged in -->
         <% if (user) { %>
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/profile/edit">Edit Profile Info</a></li>
-            <li><a href="/recipes/saved">Saved Recipes</a></li>
-            <li><a href="/users/logout">Log Out</a></li>
-        <%} else {%>
-            <!-- if the user is not logged in -->
-            <li><a href="/users/signup">Sign Up</a></li>
-            <li><a href="/users/login">Log In</a></li>
+            <li class="mx-<%=limx%>"><a class="color-white"href="/profile">Profile</a></li>
+            <li class="mx-<%=limx%>"><a href="/profile/edit">Edit Profile</a></li>
+            <li class="mx-<%=limx%>"><a href="/recipes/saved">Saved Recipes</a></li>
         <%}%>
+    </ul>
 
+    <ul class="flex justify-around mr-<%=ulm%>">
+        <% if (user) { %>
+            <li class="mx-<%=limx%>">
+                <form method="POST" action="/recipes/search">
+                    <input class="border rounded" id="searchInput" type="text" name="searchInput" placeholder="Search a Recipe!">
+                </form>
+            </li>
+            <li class="mx-<%=limx%>"><a href="/users/logout">Log Out</a></li>
+        <%} else {%>
+            <li class="mx-<%=limx%>"><a href="/users/signup">Sign Up</a></li>
+            <li class="mx-<%=limx%>"><a href="/users/login">Log In</a></li>
+        <%}%>
     </ul>
   </nav>

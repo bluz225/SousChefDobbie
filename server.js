@@ -51,6 +51,13 @@ app.use('/users', require('./controllers/users'))
 app.use('/profile', require('./controllers/profile'))
 app.use('/recipes', require('./controllers/recipes'))
 
+app.use((req,res,next) => {
+  // render a 404 template
+  res.status(404).render("errorpages/404.ejs")
+})
+
+
+
 //listen to port
 app.listen(PORT, function() {
     console.log(`🔥🔥🔥 VEGETA: ITS OVER ${PORT} 🔥🔥🔥`)

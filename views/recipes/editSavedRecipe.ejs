@@ -1,45 +1,46 @@
 <h2>edit saved recipe here</h2>
 
 <br>
-<form method="POST" action="/recipes/editsaved?_method=PUT">
-    <label for="title">Recipe Title:</label>
-    <input name="recipeId" value="<%=recipedata.id%>" hidden>
-    <input id="title" name="title" value="<%=recipedata.title%>">
-    <br>
-    <br>
-    <label for="summary">Summary:</label>
-    <br>
-    <textarea id="summary" name="summary"><%=recipedata.summary%></textarea>
-    <br>
-    <h5>Cuisines:</h5>
-    <ul>
-    <% recipedata.cuisines.forEach(function(cuisine){ %>
-        <li>
-            <input name="cuisine" value="<%=cuisine.type%>">
-        </li>
-    <%})%>
-    </ul>
-    <br>
-    <h5>Ingredients:</h5>
-    <ul id="editRecipeIngredientsUl">
-        <% recipedata.ingredients.forEach(function(ingredient){ %>
+<article class="flex justify-center">
+    <form method="POST" action="/recipes/editsaved?_method=PUT">
+        <label for="title">Recipe Title:</label>
+        <input name="recipeId" value="<%=recipedata.id%>" hidden>
+        <input id="title" name="title" value="<%=recipedata.title%>" required>
+        <br>
+        <br>
+        <label for="summary">Summary:</label>
+        <br>
+        <textarea id="summary" name="summary"><%=recipedata.summary%></textarea>
+        <br>
+        <h5>Cuisines:</h5>
+        <ul>
+        <% recipedata.cuisines.forEach(function(cuisine){ %>
             <li>
-                <%=ingredient.name%>
-                <input name="ingredientexistingredientId" value="<%=ingredient.id%>" hidden>
-                <input name="ingredientexistamountId" value="<%=ingredient.amount.id%>" hidden>
-                <input name="ingredientexistamountvalue" value="<%=ingredient.amount.value%>">
-                <input name="ingredientexistamountuom" value="<%=ingredient.amount.uom%>">
-                <button type="button" class="deleteIngredientBtn">Remove</button>
+                <input name="cuisine" value="<%=cuisine.type%>" required>
             </li>
         <%})%>
-    </ul>
-    <button type="button" id="editRecipeAddIngredientBtn">Add an Ingredient!</button>
-    <br><br>
-    <label for="instructions">instructions:</label>
-    <br>
-    <textarea id="instructions" name="instructions"><%=recipedata.instructions%></textarea>
-    <button type="submit">Save Recipe</button>
+        </ul>
+        <br>
+        <h5>Ingredients:</h5>
+        <ul id="editRecipeIngredientsUl">
+            <% recipedata.ingredients.forEach(function(ingredient){ %>
+                <li>
+                    <%=ingredient.name%>
+                    <input name="ingredientexistingredientId" value="<%=ingredient.id%>" hidden>
+                    <input name="ingredientexistamountId" value="<%=ingredient.amount.id%>" hidden>
+                    <input name="ingredientexistamountvalue" value="<%=ingredient.amount.value%>" required>
+                    <input name="ingredientexistamountuom" value="<%=ingredient.amount.uom%>" required>
+                    <button type="button" class="deleteIngredientBtn">Remove</button>
+                </li>
+            <%})%>
+        </ul>
+        <button type="button" id="editRecipeAddIngredientBtn">Add an Ingredient!</button>
+        <br><br>
+        <label for="instructions">instructions:</label>
+        <br>
+        <textarea id="instructions" name="instructions"><%=recipedata.instructions%></textarea>
+        <button type="submit">Save Recipe</button>
 
-</form>
-
+    </form>
+</article>
 <script src="/js/editSavedRecipeScript.js"></script> 

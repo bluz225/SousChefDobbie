@@ -11,11 +11,14 @@ const { default: getModuleDependencies } = require('tailwindcss/lib/lib/getModul
 
 router.post("/search", async function (req, res) {
     try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
         // console.log(req.body.searchInput)
         const searchedRecipe = req.body.searchInput
         const searchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${req.body.searchInput}&apiKey=${process.env.SPOON_API_KEY}&number=20`
         const searchResults = await axios.get(searchURL)
-        // console.log(searchResults.data)
 
         res.render("recipes/searchByRecipes.ejs", { searchedRecipe, searchResults: searchResults.data.results })
 
@@ -25,18 +28,28 @@ router.post("/search", async function (req, res) {
 })
 
 router.post("/view", async function (req, res) {
-    // console.log(req.params.id)
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
+        const searchedResult = JSON.parse(req.body.result)
+        const viewRecipebyIdURL = `https://api.spoonacular.com/recipes/${searchedResult.id}/information?includeNutrition=false&apiKey=${process.env.SPOON_API_KEY}`
+        const viewRecipeResult = await axios.get(viewRecipebyIdURL)
+    
+        res.render("recipes/viewRecipe.ejs", { viewRecipeResult: viewRecipeResult.data, searchedResult })
+    } catch (error) {
+        console.warn(error)
+    }
 
-    const searchedResult = JSON.parse(req.body.result)
-    const viewRecipebyIdURL = `https://api.spoonacular.com/recipes/${searchedResult.id}/information?includeNutrition=false&apiKey=${process.env.SPOON_API_KEY}`
-    const viewRecipeResult = await axios.get(viewRecipebyIdURL)
-    // console.log(viewRecipeResult.data)
-
-    res.render("recipes/viewRecipe.ejs", { viewRecipeResult: viewRecipeResult.data, searchedResult })
 })
 
 router.post("/saved", async function (req, res) {
     try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
         // console.log(res.locals.user)
         const foundUser = await db.user.findOne({
             where: {
@@ -184,6 +197,10 @@ router.post("/saved", async function (req, res) {
 
 router.get("/saved", async function (req, res) {
     try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
         const allsavedrecipes = await db.user.findAll({
             where: {
                 id: res.locals.user.dataValues.id
@@ -199,44 +216,74 @@ router.get("/saved", async function (req, res) {
 })
 
 router.delete("/saved/:id", async function (req, res) {
-    console.log("saved recipe id:", req.params.id)
-    let user = await db.user.findByPk(res.locals.user.dataValues.id)
-    // user = JSON.parse(JSON.stringify(user))
-    const recipe = await db.savedrecipe.findByPk(req.params.id)
-    const ingredients = await db.ingredient.findAll()
-    recipe.removeIngredient(ingredients)
-
-    await db.savedrecipe.destroy({
-        where: {
-            id: req.params.id
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
         }
-    })
 
-    res.redirect("/recipes/saved")
+        
+        console.log("saved recipe id:", req.params.id)
+        let user = await db.user.findByPk(res.locals.user.dataValues.id)
+        // user = JSON.parse(JSON.stringify(user))
+        const recipe = await db.savedrecipe.findByPk(req.params.id)
+        const ingredients = await db.ingredient.findAll()
+        recipe.removeIngredient(ingredients)
+    
+        await db.savedrecipe.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
+    
+        res.redirect("/recipes/saved")
+    } catch (error) {
+        console.warn(error)
+    }
 })
 
 router.get("/editsaved/:id", async function (req, res) {
-    console.log("recipe id:", req.params.id)
-    const editRecipe = await db.savedrecipe.findOne({
-        where: {
-            id: req.params.id
-        }, include: [{
-            all: true, nested: true
-        }]
-    })
-    const editRecipeJSON = JSON.parse(JSON.stringify(editRecipe))
-    delete editRecipeJSON.user["id"]
-    delete editRecipeJSON.user["password"]
-    delete editRecipeJSON.user["createdAt"]
-    delete editRecipeJSON.user["updatedAt"]
+    try {
+        const editRecipe = await db.savedrecipe.findOne({
+            where: {    
+                id: req.params.id
+            }, include: [{
+                all: true, nested: true
+            }]
+        })        
 
-    // console.log(editRecipeJSON)
-    res.render("recipes/editSavedRecipe.ejs", { recipedata: editRecipeJSON })
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
+
+        if (editRecipe.user.id != res.locals.user.dataValues.id){
+            res.redirect("/profile")
+            return
+        }
+        // console.log("recipe id:", req.params.id)
+
+        const editRecipeJSON = JSON.parse(JSON.stringify(editRecipe))
+        delete editRecipeJSON.user["id"]
+        delete editRecipeJSON.user["password"]
+        delete editRecipeJSON.user["createdAt"]
+        delete editRecipeJSON.user["updatedAt"]
+    
+        // console.log(editRecipeJSON)
+        res.render("recipes/editSavedRecipe.ejs", { recipedata: editRecipeJSON })
+    } catch (error) {
+        console.warn(error)
+    }
+    
+   
 })
 
 router.put("/editsaved/", async function (req, res) {
     try {
-        console.log(req.body)
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
 
         // updates title, summary and instructions
         const recipeToEdit = await db.savedrecipe.findByPk(req.body.recipeId)
@@ -382,6 +429,9 @@ router.put("/editsaved/", async function (req, res) {
                 }
         }
 
+
+
+        
         res.redirect(`/recipes/editsaved/${req.body.recipeId}`)
     } catch (error) {
         console.warn(error)

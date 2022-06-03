@@ -85,7 +85,8 @@ router.get("/logout",(req,res)=>{
     // clear the cookie from storage
     // redirect to root
     res.clearCookie("userId")
-    res.render("users/login.ejs", {msg:null})
+    res.redirect("login")
+
     
 })
 
