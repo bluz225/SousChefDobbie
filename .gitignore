@@ -17,8 +17,6 @@ pids
 lib-cov
 
 # Server Config.json folder
-config
-config.json
 
 # Coverage directory used by tools like istanbul
 coverage

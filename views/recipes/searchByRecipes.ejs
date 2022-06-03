@@ -1,9 +1,6 @@
-<h2>Search for a new recipe</h2>
-
-<p>Searched Term: <%= searchedRecipe %>
+<p class="text-center">Searched Term: <%= searchedRecipe %>
 </p>
 
-<h2>populate list of recipes based on search API</h2>
 <div class="flex justify-center">
     <div class="mx-30 my-10 grid grid-cols-3 gap-20">
         <% searchResults.forEach(result=> { %>
