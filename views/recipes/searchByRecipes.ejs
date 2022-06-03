@@ -1,19 +1,25 @@
 <h2>Search for a new recipe</h2>
 
-<p>Searched Term: <%= searchedRecipe %></p>
+<p>Searched Term: <%= searchedRecipe %>
+</p>
 
 <h2>populate list of recipes based on search API</h2>
-
-
-<% searchResults.forEach(result => { %>
-    <div class="search-results">
-        <div>
-            <img src="<%=result.image%>" alt="Image of <%=result.title%>">
-        </div>
-        <p><%=result.title%></p>
-        <form method="POST" action="/recipes/view">
-            <input hidden name="result" value="<%= JSON.stringify(result) %>">
-            <button type="submit">View this Recipe!</button>
-        </form>
+<div class="flex justify-center">
+    <div class="mx-30 my-10 grid grid-cols-3 gap-20">
+        <% searchResults.forEach(result=> { %>
+            <div
+                class="search-results flex flex-col items-center justify-center bg-white max-w-[20rem] rounded-3xl overflow-hidden shadow-lg my-1">
+                <img class="min-w-[120%]" src=" <%=result.image%>" alt="Image of <%=result.title%>">
+                    <div class="px-3 py-2">
+                        <p class="text-center font-bold text-xl mb-2">
+                            <%=result.title%>
+                        </p>
+                    </div>
+                    <form method="POST" action="/recipes/view">
+                        <input hidden name="result" value="<%= JSON.stringify(result) %>">
+                        <button class="mb-5 p-2 text-white bg-black border rounded-lg" type="submit">View this Recipe!</button>
+                    </form>
+            </div>
+            <%}) %>
     </div>
-<%}) %> 
+</div>
