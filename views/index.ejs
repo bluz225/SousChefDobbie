@@ -1,1 +1,42 @@
-<h2>Home Page</h2>
+<% let cardw=50 %>
+    <% let cardh=10 %>
+        <% let name=[ 
+            "Draco Malfoy",
+            "Harry Potter",
+            "Hermione Granger" 
+        ] %>
+
+            <% let imgURL=[ 
+                "https://cdn.mos.cms.futurecdn.net/er4HXc7zSAUfyCkQbcpauU.jpg",
+                "https://i2-prod.staffordshire-live.co.uk/incoming/article1931897.ece/ALTERNATES/s1200/0_HARRY-POTTER-AND-THE-HALF-BLOOD-PRINCE.jpg",
+                "https://i.ytimg.com/vi/SzUaInrqZQA/maxresdefault.jpg"
+
+             ] %>
+
+                <% let testimonial=[
+                    "The worst house elf I have ever seen, makes a mean gryffin lasagna though",
+                    "He can move faster than Severus Snape confronted with shampoo!",
+                    "That thing has a name?!?"
+                 ] %>
+
+
+                    <div>
+                        <div class="flex flex-col justify-center items-center h-[90vh]">
+                        <h1 class="mt-4 text-[40px]">Testimonials</h1>
+                        <% name.forEach(function(person,i){%>
+                        
+                            <div class="w-[<%=cardw%>rem] h-[<%=cardh%>rem] flex justify-center border rounded-3xl bg-white drop-shadow-lg my-6">
+
+                                <div class="bg-[url('<%=imgURL[i]%>')] bg-cover bg-center w-1/4 border rounded-l-3xl"></div>
+
+
+                                <div class="w-3/4 flex flex-col justify-center px-[1rem]">
+                                    <p>"<%=testimonial[i]%>"</p>
+                                    <p class="ml-4">-<%=person%></p>
+                                </div>
+                            </div>
+                        
+                        <%})%>
+                    </div>
+
+                    </div>
