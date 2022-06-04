@@ -294,6 +294,28 @@ router.put("/editsaved/", async function (req, res) {
         })
         await recipeToEdit.save()
 
+        //remove cuisine linkages
+        const cuisinesNotOnRecipe = await db.cuisine.findAll({
+            attributes: ['id'],
+            where: {
+                id: {[Op.not]: req.body.existingcuisineId }
+            }
+        })
+
+        console.log(cuisinesNotOnRecipe)
+        
+        if (cuisinesNotOnRecipe.length >0){
+            for(i=0;i<cuisinesNotOnRecipe.length;i++) {
+                const searchCuisinePk = await db.cuisine.findByPk(cuisinesNotOnRecipe[i].dataValues.id)
+                recipeToEdit.removeCuisine(searchCuisinePk)
+            }
+        }
+
+        //update cuisine name
+
+        //add new cuisines
+
+
         const ingredientsNotOnRecipe = await db.ingredient.findAll({
             attributes: ['id'],
             where: {

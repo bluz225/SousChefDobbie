@@ -14,27 +14,30 @@
             <h5>Cuisines:</h5>
             <div id="editCuisinesDiv">
                 <% recipedata.cuisines.forEach(function(cuisine){ %>
-                    <div class="ml-5">
-                        <input class="text-center border rounded-3xl" name="cuisine" value="<%=cuisine.type%>" required>
-                        <button class="border w-[10rem] rounded-3xl bg-slate-500 hover:bg-slate-400" type="button"
-                        class="deleteCusineBtn">Remove</button>
+                    <div class="ml-5 grid grid-cols-2 gap=2 w-[30rem]">
+                        <input name="existingcuisineId" value="<%=cuisine.id%>" hidden>
+                        <input class="w-[15rem] text-center border rounded-3xl" name="existingcuisinetype" value="<%=cuisine.type%>" required>
+                        <button class="deleteCusineBtn border w-[10rem] rounded-3xl bg-slate-500 hover:bg-slate-400" type="button">Remove</button>
                     </div>
                     <%})%>
             </div>
         </div>
-        <br>
+
+        <button class="ml-5 mt-3 border rounded-3xl bg-slate-500 hover:bg-slate-400 w-[10rem] my-5" type="button"
+            id="editRecipeAddCuisineBtn">Add an Cuisine!</button>
+
         <div class="flex flex-col">
             <h5>Ingredients:</h5>
             <div id="editRecipeIngredientsDiv">
-                <div class="grid grid-cols-4 gap-2 auto-cols-min ml-5">
-                    <p>Name</p>
-                    <p>Quantity</p>
-                    <p>Unit of Measure</p>
-                    <p></p>
+                <div class="w-[35rem] grid grid-cols-4 gap-2 auto-cols-min ml-5">
+                    <p class="w-[10rem]">Name</p>
+                    <p class="w-[5rem] text-center">Quantity</p>
+                    <p class="w-[5rem] text-center">UoM</p>
+                    <p class="w-[10rem]"></p>
                 </div>
                 <% recipedata.ingredients.forEach(function(ingredient){ %>
-                    <div class="grid grid-cols-4 gap-2 auto-cols-min ml-5">
-                        <p>
+                    <div class="w-[35rem] grid grid-cols-4 gap-2 auto-cols-min ml-5">
+                        <p class="w-[10rem]">
                             <%=ingredient.name%>
                         </p>
                         <input name="ingredientexistingredientId" value="<%=ingredient.id%>" hidden>
@@ -43,21 +46,20 @@
                             value="<%=ingredient.amount.value%>" required>
                         <input class="text-center w-[5rem] border rounded-3xl" name="ingredientexistamountuom"
                             value="<%=ingredient.amount.uom%>" required>
-                        <button class="border rounded-3xl bg-slate-500 hover:bg-slate-400" type="button"
-                            class="deleteIngredientBtn">Remove</button>
+                        <button class="deleteIngredientBt w-[10rem] border rounded-3xl bg-slate-500 hover:bg-slate-400" type="button">Remove</button>
                     </div>
                     <%})%>
             </div>
         </div>
 
-        <button class="mt-3 border rounded-3xl bg-slate-500 hover:bg-slate-400 w-[10rem] my-5" type="button"
+        <button class="ml-5 mt-3 border rounded-3xl bg-slate-500 hover:bg-slate-400 w-[10rem] my-5" type="button"
             id="editRecipeAddIngredientBtn">Add an Ingredient!</button>
         <div class="flex flex-col">
             <label for="instructions">instructions:</label>
             <textarea class="h-[20rem] ml-5 border rounded" id="instructions"
                 name="instructions"><%=recipedata.instructions%></textarea>
         </div>
-        <button class="mt-5 w-[10rem] border rounded-3xl bg-slate-500 hover:bg-slate-400" type="submit">Save
+        <button class="ml-5 mt-5 w-[10rem] border rounded-3xl bg-slate-500 hover:bg-slate-400" type="submit">Save
             Recipe</button>
 
     </form>
