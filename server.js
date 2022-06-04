@@ -43,7 +43,12 @@ app.use( async (req,res,next)=>{
 
 //render home page
 app.get("/", function(req,res){
+  if (res.locals.user){3
+    res.redirect("/profile")
+  } else {
     res.render("index.ejs")
+  }
+    
 })
 
 // controller middleware

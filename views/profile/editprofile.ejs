@@ -1,38 +1,56 @@
-<h2>Profile Edit Page</h2>
+<div class="flex flex-col items-center justify-center h-[30vh] mt-10">
+    <div class="flex flex-col justify-center h-80 w-[27em] bg-[#E5E5E5] border-3 rounded-3xl">
+        <div class="mx-7">
+            <form method="POST" action="/profile/edit?_method=PUT">
+                <div class="grid grid-rows-1 grid-cols-2 my-1">
+                    <label for="firstName">Change your First Name:</label>
+                    <input id="firstName" type="text" name="firstName" value="<%=user.firstName%>" required>
+                </div>
+                <div class="grid grid-rows-1 grid-cols-2 my-1">
+                    <label for="lastName">Change your Last Name:</label>
+                    <input id="lastName" type="text" name="lastName" value="<%=user.lastName%>" required>
+                </div>
+                <div class="grid grid-rows-1 grid-cols-2 my-1">
+                    <label for="email">Change your Email:</label>
+                    <input id="email" type="email" name="email" value="<%=user.email%>" required>
+                </div>
+                <div class="flex justify-center mt-5 ">
+                    <button class="h-7 w-60 border rounded-md bg-slate-500 text-white" type="submit">Make the
+                        change</button>
+                </div>
+        </div>
+        </form>
+    </div>
+</div>
+</div>
 
+<% if (msg !=null) { %>
+    <p>
+        <%= msg %>
+    </p>
+    <% } %>
 
-<p>Profile Form HERE <%= user.firstName %></p>
-
-<form method="POST" action="/profile/edit?_method=PUT">
-    <label for="firstName">Change your First Name:</label>
-    <input id="firstName" type="text" name="firstName" value="<%=user.firstName%>" required>
-
-    <label for="lastName">Change your Last Name:</label>
-    <input id="lastName" type="text" name="lastName" value="<%=user.lastName%>" required>
-
-    <label for="email">Change your Email:</label>
-    <input id="email" type="email" name="email" value="<%=user.email%>" required>
-    
-    <button type="submit">Make the change</button>
-
-</form>
-
-
-<% if (msg != null) { %>
-    <p><%= msg %></p>
-<% } %>    
-
-
-<p>Change your password</p>
-<form method="POST" action="/profile/changepassword?_method=PUT">
-    <label for="cpw">Type in your password:</label>
-    <input id="cpw" type="password" name="cpw" required>
-
-    <label for="pw1">Type in your password:</label>
-    <input id="pw1" type="password" name="pw1" required>
-    
-    <label for="pw2">Re-Type in your password:</label>
-    <input id="pw2" type="password" name="pw2" required>
-    
-    <button type="submit">Change your password</button>
-</form>
+        <div class="flex flex-col items-center justify-center h-[30vh] mt-10">
+            <div class="flex flex-col justify-center h-80 w-[27em] bg-[#E5E5E5] border-3 rounded-3xl py-0.5">
+                <div class="mx-7">
+                    <form method="POST" action="/profile/changepassword?_method=PUT">
+                        <div class="grid grid-rows-1 grid-cols-2 my-1">
+                            <label for="cpw">Type in your password:</label>
+                            <input id="cpw" type="password" name="cpw" required>
+                        </div>
+                        <div class="grid grid-rows-1 grid-cols-2 my-1">
+                            <label for="pw1">Type in your password:</label>
+                            <input id="pw1" type="password" name="pw1" required>
+                        </div>
+                        <div class="grid grid-rows-1 grid-cols-2 my-1">
+                            <label for="pw2">Re-Type in your password:</label>
+                            <input id="pw2" type="password" name="pw2" required>
+                        </div>
+                        <div class="flex justify-center mt-5 ">
+                            <button class="h-7 w-60 border rounded-md bg-slate-500 text-white" type="submit">Change your
+                                password</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>

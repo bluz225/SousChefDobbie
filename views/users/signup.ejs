@@ -2,19 +2,29 @@
 
 
 <form method="POST" action="/users/signup">
-    
-    <label for="firstName">First Name:</label>
-    <input id="firstName" type="text" name="firstName" placeholder="Enter your First Name" required>
-
-    <label for="lastName">Last Name:</label>
-    <input id="lastName" type="text" name="lastName" placeholder="Enter your Last Name" required>
-
-    <label for="email">Email:</label>
-    <input id="email" type="email" name="email" placeholder="Enter your Email" required>
-    
-    <label for="password">Password:</label>
-    <input id="password" type="password" name="password" placeholder="Enter your Password" required>
-    
-    <button type="submit">Sign Up!</button>
-
+    <div class="flex flex-col items-center justify-center h-[70vh]">
+    <div class="flex flex-col justify-center h-80 w-100 bg-[#E5E5E5] border-3 rounded-3xl">
+        <div class="flex justify-center items-center mb-4">
+            <img class="w-16 mx-3" src="https://rlv.zcache.com/dobby_cartoon_character_art_classic_round_sticker-r29f4846ad87d4bdd989d776e74e6b450_0ugmp_8byvr_704.webp">
+            <p class="my-1 text-xs">Dobbie has <span class="italic">ANOTHER</span> new master?!?!</p>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-2 my-1">
+            <label class="ml-1 text-center" for="firstName">First Name:</label>
+            <input class="mr-1 border rounded-md" id="firstName" type="text" name="firstName" placeholder="Enter your First Name" required>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-2 my-1">
+            <label class="ml-1 text-center" for="lastName">Last Name:</label>
+            <input class="mr-1 border rounded-md"  id="lastName" type="text" name="lastName" placeholder="Enter your Last Name" required>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-2 my-1">
+            <label class="ml-1 text-center" for="email">Email:</label>
+            <input class="mr-1 border rounded-md"  id="email" type="email" name="email" placeholder="Enter your Email" required>
+        </div>
+        <div class="grid grid-rows-1 grid-cols-2 my-1">
+            <label class="ml-1 text-center" for="password">Password:</label>
+            <input class="mr-1 border rounded-md"  id="password" type="password" name="password" placeholder="Enter your Password" required>
+        </div>
+        <button class="mt-5" type="submit">Sign Up!</button>
+    </div>
+</div>
 </form>
