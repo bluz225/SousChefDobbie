@@ -102,7 +102,7 @@ router.put("/changepassword", async function(req,res){
             } else {
                 msg = "the current password provided was incorrect, please try again"
             }
-            res.render("profile/editprofile.ejs",{cleanuser , msg})
+            res.redirect("edit")
 
         }
     } catch (error) {
