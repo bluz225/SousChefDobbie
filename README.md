@@ -2,8 +2,30 @@
 
 Introduction:
 Welcome to Sous Chef Dobbie, your most (somewhat) useful cooking assistant, he can only help from the sidelines with recipe knowledge. 
+
+Check out Sous Chef Dobbie [Here](https://souschefdobbie.herokuapp.com/)
+
+## Post Project Reflection:
+The complexity of this full stack project was greater than I had anticipated. There were a couple of things I was unable to get to due to inadequate initial planning. For example, I decided to incorporate the ability create and edit recipes but was not able to implement the creation of recipes. I also focused too much on incorporating the USDA api to obtain nutrient (calories, carbs, fat, and protein) but did not implement these features to be calculated. 
+
+## Existing bugs:
+There were multiple bugs that sprang up by the end of the project deadline, for example, I had found that the amount and UOM for ingredients were not properly linked up.
+
+## Future Plans:
+Future plans for this project would be to add create recipes and also complete the editing aspect of the recipe. I would also like to incorporate nuturient display per ingredient and aggregate for the entire recipe. Also add the ability to upload pictures of the user to be used. 
+
+## Sources used (This is an educational full-stack learning project, I do not own copy rights or intellectual property for these images/sources)
+- Images from various 
+    - Harry potter Theme IP belongs to JK Rowling and associated organizations.
+    - Harry Potter Image from landing page [Link](https://www.memecreator.org/static/images/templates/1499417.jpg)
+    - Draco Malfloy Image from landing page [Link](https://cdn.mos.cms.futurecdn.net/er4HXc7zSAUfyCkQbcpauU.jpg)
+    - Nav Bar Dobby with a sock [Link](https://www.kindpng.com/picc/m/726-7266773_dobby-harrypotter-hp-hogwarts-dobby-from-harry-potter.png)
+    - Cute drawn Dobby [Link](https://rlv.zcache.com/dobby_cartoon_character_art_classic_round_sticker-r29f4846ad87d4bdd989d776e74e6b450_0ugmp_8byvr_704.webp)
+- USDA API [Link Here](https://www.ers.usda.gov/developer/data-apis/)
+- Spoonacular API [Link Here](https://spoonacular.com/food-api)
  
-MVP Technical Requirements:
+
+## MVP Technical Requirements:
 - Must have user creation feature
 - Must have user sign in feature
 - Must be able to search recipes
