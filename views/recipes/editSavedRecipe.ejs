@@ -10,21 +10,21 @@
             <textarea class="h-[20rem] ml-5 border rounded" id="summary"
                 name="summary"><%=recipedata.summary%></textarea>
         </div>
-        <div class="flex flex-col">
+        <!-- <div class="flex flex-col">
             <h5>Cuisines:</h5>
             <div id="editCuisinesDiv">
-                <% recipedata.cuisines.forEach(function(cuisine){ %>
+                <%# recipedata.cuisines.forEach(function(cuisine){ %>
                     <div class="ml-5 grid grid-cols-2 gap=2 w-[30rem]">
-                        <input name="existingcuisineId" value="<%=cuisine.id%>" hidden>
-                        <input class="w-[15rem] text-center border rounded-3xl" name="existingcuisinetype" value="<%=cuisine.type%>" required>
+                        <input name="existingcuisineId" value="<%#=cuisine.id%>" hidden>
+                        <input class="w-[15rem] text-center border rounded-3xl" name="existingcuisinetype" value="<%#=cuisine.type%>" required>
                         <button class="deleteCusineBtn border w-[10rem] rounded-3xl bg-slate-500 hover:bg-slate-400" type="button">Remove</button>
                     </div>
-                    <%})%>
+                    <%#})%>
             </div>
-        </div>
-
+        </div> -->
+<!-- 
         <button class="ml-5 mt-3 border rounded-3xl bg-slate-500 hover:bg-slate-400 w-[10rem] my-5" type="button"
-            id="editRecipeAddCuisineBtn">Add an Cuisine!</button>
+            id="editRecipeAddCuisineBtn">Add an Cuisine!</button> -->
 
         <div class="flex flex-col">
             <h5>Ingredients:</h5>
@@ -45,8 +45,8 @@
                         <input class="text-center w-[5rem] border rounded-3xl" name="ingredientexistamountvalue"
                             value="<%=ingredient.amount.value%>" required>
                         <input class="text-center w-[5rem] border rounded-3xl" name="ingredientexistamountuom"
-                            value="<%=ingredient.amount.uom%>" required>
-                        <button class="deleteIngredientBt w-[10rem] border rounded-3xl bg-slate-500 hover:bg-slate-400" type="button">Remove</button>
+                            value="<%=ingredient.amount.uom%>">
+                        <button class="deleteIngredientBtn w-[10rem] border rounded-3xl bg-slate-500 hover:bg-slate-400" type="button">Remove</button>
                     </div>
                     <%})%>
             </div>

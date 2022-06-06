@@ -8,8 +8,8 @@ const deleteCusineBtn = document.querySelectorAll(".deleteCusineBtn")
 
 // DOM content loaded
 document.addEventListener("DOMContentLoaded", function(){
-    console.log(deleteIngredientBtn)
-    // adds event listener to all delete buttons that were generated in the ingredients element
+
+    // adds event listener to all delete buttons that were generated in the ingredients element with class deleteIngredientBtn
     deleteIngredientBtn.forEach(function(btn, index){
         console.log("ingreident delete button was pushed")
         btn.addEventListener("click",function(e){
@@ -19,6 +19,8 @@ document.addEventListener("DOMContentLoaded", function(){
     // add event listener to call addNewIngredient function when "add ingredient button is pressed"
     editRecipeAddIngredientBtn.addEventListener("click",addNewIngredient)
 
+
+    //adds event listen to all delete buttons that were generated in the cuisines element with class deleteCusineBtn
     console.log(deleteCusineBtn)
     deleteCusineBtn.forEach(function(btn, index){
         console.log("cuisine delete button was pushed")
@@ -27,6 +29,7 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     })
 
+    // add event listener to call addNewCusine function when "add cuisine button is pressed"
     editRecipeAddCuisineBtn.addEventListener("click",addNewCuisine)
 
 
@@ -72,7 +75,6 @@ function addNewIngredient(){
 
     const ingredUomInput = document.createElement("input")
     ingredUomInput.name = `ingredientnewamountuom`
-    ingredUomInput.required = true
     ingredUomInput.setAttribute("class","text-center w-[5rem] border rounded-3xl")
 
     const ingredRemoveBtn = document.createElement("button")

@@ -1,15 +1,16 @@
-<h2>Profile Page</h2>
-
-
-<p>Profile PAGE HERE <%= user.firstName %></p>
-
-<!-- <a href="/recipes/saved">Saved Recipes</a> -->
-
-<form method="POST" action="/recipes/search">
-    <label for="searchInput">Search by Recipe Name</label>
-    <input id="searchInput" type="text" name="searchInput">
-
-    <button type="submit">Search!</button>
-</form>
-
-<!-- <a href="/recipes/search">Search for new Recipes</a> -->
+<h2 class="text-center mt-10 italic">Here are some other people's favorite recipes
+</h2>
+<div class="flex justify-center">
+    <div class="mx-30 my-10 grid grid-cols-3 gap-20">
+        <% allSavedRecipesOtherThan.forEach(function(recipe){ %>
+            <div class="flex flex-col items-center justify-center bg-white max-w-[20rem] rounded-3xl overflow-hidden shadow-lg my-1">
+                <img class= "min-w-[100%]" src="<%=recipe.imageurl%>">
+                <div class="px-3 py-2">
+                    <p class="text-center font-bold text-xl mb-2 hover:text-slate-500"><a href="/recipes/viewSavedRecipe/<%=recipe.id%>">
+                            <%=recipe.title%>
+                        </a></p>
+                </div>
+            </div>
+            <% }) %>
+    </div>
+</div>

@@ -4,14 +4,26 @@ let db = require('../models')
 let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
+const { Op } = require("sequelize");
 
 // show profile page route
-router.get("/", function(req,res){
+router.get("/", async function(req,res){
     if (!res.locals.user){
         res.render("users/login.ejs", {msg: "please login to continue"})
         return
     } else {
-        res.render("profile/showprofile.ejs")
+        let allSavedRecipesOtherThan = await db.savedrecipe.findAll({
+            where:{
+                userId:{[Op.not]:`${res.locals.user.dataValues.id}`}
+            }
+        })
+        allSavedRecipesOtherThan = JSON.parse(JSON.stringify(allSavedRecipesOtherThan))
+        allSavedRecipesOtherThan.forEach(function(recipe){
+            delete recipe["userId"]
+        })
+        
+    // console.log(allSavedRecipesOtherThan)
+        res.render("profile/showprofile.ejs", {allSavedRecipesOtherThan})
     }
 })
 
@@ -36,6 +48,7 @@ router.get("/edit", async function(req,res){
 
 })
 
+// route to edit accout info
 router.put("/edit", async function(req,res){
     try {
         if (!res.locals.user){
@@ -57,6 +70,7 @@ router.put("/edit", async function(req,res){
     }  
 })
 
+// route to change the password
 router.put("/changepassword", async function(req,res){
     try {
         if (!res.locals.user){

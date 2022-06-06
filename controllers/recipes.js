@@ -27,6 +27,61 @@ router.post("/search", async function (req, res) {
     }
 })
 
+router.get("/viewSavedRecipe/:id", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
+        // console.log(req.body.recipeId)
+        let savedRecipeToView = await db.savedrecipe.findOne({
+            where:{
+                id: req.params.id},
+                include: [{
+                   all:true, nested:true
+                }]
+            })
+            savedRecipeToView = JSON.parse(JSON.stringify(savedRecipeToView))
+            console.log(savedRecipeToView)
+        res.render("recipes/viewsavedrecipe.ejs", {recipedata:savedRecipeToView})
+    } catch (error) {
+        console.warn(error)
+    }
+})
+
+// add existing saved recipe to favorites
+router.post("/addSavedToFavorites", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
+        const savedRecipeToAdd = await db.savedrecipe.findOne({
+            where:{
+                id: req.body.recipeId},
+                include: [{
+                   all:true, nested:true
+                }]
+            })
+
+        const recipeAdded = await db.savedrecipe.create({
+            title: savedRecipeToAdd.title,
+            summary: savedRecipeToAdd.summary,
+            imageurl: savedRecipeToAdd.imageurl,
+            instructions: savedRecipeToAdd.instructions,
+            userId: res.locals.user.dataValues.id
+        })
+        savedRecipeToAdd.ingredients.forEach(function(ingredient){
+            recipeAdded.addIngredient(ingredient)
+        })
+        console.log(savedRecipeToAdd)
+        res.redirect("/profile")
+    } catch (error) {
+        console.warn(error)
+    }
+})
+
+// view recipe 
 router.post("/view", async function (req, res) {
     try {
         if (!res.locals.user){
@@ -44,6 +99,8 @@ router.post("/view", async function (req, res) {
 
 })
 
+
+//saves recipe from API to db
 router.post("/saved", async function (req, res) {
     try {
         if (!res.locals.user){
@@ -191,16 +248,14 @@ router.post("/saved", async function (req, res) {
     }
 })
 
-
-
-
-
+// views all saved recipes for user
 router.get("/saved", async function (req, res) {
     try {
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
             return
         }
+        // only uses user cookie id so there is limited risk of hacking from the URL manipulation
         const allsavedrecipes = await db.user.findAll({
             where: {
                 id: res.locals.user.dataValues.id
@@ -215,6 +270,8 @@ router.get("/saved", async function (req, res) {
     }
 })
 
+
+// removes saved recipe from user list
 router.delete("/saved/:id", async function (req, res) {
     try {
         if (!res.locals.user){
@@ -251,12 +308,12 @@ router.get("/editsaved/:id", async function (req, res) {
                 all: true, nested: true
             }]
         })        
-
+        // checks if user cookie exists
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
             return
         }
-
+        //checks if the cookie user and recipe user is the same
         if (editRecipe.user.id != res.locals.user.dataValues.id){
             res.redirect("/profile")
             return
@@ -294,28 +351,57 @@ router.put("/editsaved/", async function (req, res) {
         })
         await recipeToEdit.save()
 
-        //remove cuisine linkages
-        const cuisinesNotOnRecipe = await db.cuisine.findAll({
-            attributes: ['id'],
-            where: {
-                id: {[Op.not]: req.body.existingcuisineId }
-            }
-        })
+        // // checks to see if req.body.existingcuisineId is an array (if not it means there was only one) and pushes to an array
+        // if (!Array.isArray(req.body.existingcuisineId)){
+        //     let existingCuisineTypes = []
+        //     existingCuisineTypes.push(req.body.existingcuisineId)
+        //     req.body.existingcuisineId = existingCuisineTypes
+        // }
 
-        console.log(cuisinesNotOnRecipe)
+        // //remove cuisine linkages NOT WORKING, appears to be causing error
+        // const cuisinesNotOnRecipe = await db.cuisine.findAll({
+        //     attributes: ['id'],
+        //     where: {
+        //         id: {[Op.not]: req.body.existingcuisineId }
+        //     }, include: {
+        //         model: db.savedrecipe,
+        //         where: {
+        //             id: req.body.recipeId
+        //         }
+        //     }
+        // })
+
+
+
+        // console.log(cuisinesNotOnRecipe)
         
-        if (cuisinesNotOnRecipe.length >0){
-            for(i=0;i<cuisinesNotOnRecipe.length;i++) {
-                const searchCuisinePk = await db.cuisine.findByPk(cuisinesNotOnRecipe[i].dataValues.id)
-                recipeToEdit.removeCuisine(searchCuisinePk)
-            }
-        }
+        // if (cuisinesNotOnRecipe.length >0){
+        //     for(i=0;i<cuisinesNotOnRecipe.length;i++) {
+        //         const searchCuisinePk = await db.cuisine.findByPk(cuisinesNotOnRecipe[i].dataValues.id)
+        //         recipeToEdit.removeCuisine(searchCuisinePk)
+        //     }
+        // }
 
-        //update cuisine name
+        // //update/add cuisine name
+        // if (!Array.isArray(req.body.newcuisinetype)){
+        //     let newCuisineTypes = []
+        //     newCuisineTypes.push(req.body.newcuisinetype)
+        //     req.body.newcuisinetype = newCuisineTypes
+        // }
 
-        //add new cuisines
+        // if (req.body.newcuisinetype.length >0 ) {
+        //     req.body.newcuisinetype.forEach( async function(cuisineType) {
+        //         const [newCuisine,CuisineCreated] = await db.cuisine.findOrCreate({
+        //             where: {
+        //                 type: cuisineType
+        //             }
+        //         })
+        //         console.log(recipeToEdit)
+        //         recipeToEdit.addCuisine(newCuisine)
+        //     });
+        // }      
 
-
+        // searches recipe ingredients and returns ones that arent on that
         const ingredientsNotOnRecipe = await db.ingredient.findAll({
             attributes: ['id'],
             where: {
@@ -462,6 +548,8 @@ router.put("/editsaved/", async function (req, res) {
 
 module.exports = router
 
+
+// USDA API search function
 async function searchUSDA(searchTerm) {
     const searchUSDAurl = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${process.env.USDA_API_KEY}&query=${searchTerm}&pageSize=1`
     const USDAsearchResults = await axios.get(searchUSDAurl)

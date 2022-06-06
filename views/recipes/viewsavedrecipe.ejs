@@ -1,0 +1,64 @@
+<article class="mx-80 my-10">
+    <form method="POST" action="/recipes/addSavedToFavorites">
+        <div class="my-1 w-[40rem] flex flex-col">
+            <div class="flex justify-between">
+                <div>
+                    <h1 for="title">Recipe Title:</h1>
+                    <p class="w-[20rem] ml-5">
+                        <%=recipedata.title%>
+                    </p>
+                </div>
+                <div>
+                    <input name="recipeId" value="<%=recipedata.id%>" hidden>
+                    <button class="ml-5 mt-5 w-[12rem] h-[2rem] border rounded-3xl bg-slate-500 hover:bg-slate-400"
+                        type="submit">Add to your
+                        favorites!</button>
+                </div>
+            </div>
+
+        </div>
+        <img class="min-w-[50%]" src="<%=recipedata.imageurl%>">
+        <div class="flex flex-col">
+            <h1 for="summary">Summary:</h1>
+            <p class="h-[20rem] ml-5">
+                <%=recipedata.summary%>
+            </p>
+        </div>
+        <div class="flex flex-col">
+            <h5>Cuisines:</h5>
+            <div id="editCuisinesDiv">
+                <% recipedata.cuisines.forEach(function(cuisine){ %>
+                    <div class="ml-5 grid grid-cols-2 gap=2 w-[30rem]">
+                        <p class="w-[15rem] text-center" name="existingcuisinetype" value="" required>
+                            <%=cuisine.type%>
+                        </p>
+                    </div>
+                    <%})%>
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            <h5>Ingredients:</h5>
+            <div id="editRecipeIngredientsDiv">
+                <% recipedata.ingredients.forEach(function(ingredient){ %>
+                    <div class="w-[35rem] flex ml-5">
+                        <p class="text-center">
+                            <%=ingredient.amount.value%>
+                                <%=ingredient.amount.uom%> ,<%=ingredient.name%>
+                        </p>
+                    </div>
+                    <%})%>
+            </div>
+        </div>
+
+        <div class="flex flex-col">
+            <h1 for="instructions">instructions:</h1>
+            <p class="h-[20rem] ml-5 border rounded">
+                <%=recipedata.instructions%>
+            </p>
+        </div>
+
+
+    </form>
+</article>
+<script src="/js/editSavedRecipeScript.js"></script>
