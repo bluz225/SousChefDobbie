@@ -17,7 +17,8 @@ Future plans for this project would be to add create recipes and also complete t
 ## Sources used (This is an educational full-stack learning project, I do not own copy rights or intellectual property for these images/sources)
 - Images from various 
     - Harry potter Theme IP belongs to JK Rowling and associated organizations.
-    - Harry Potter Image from landing page [Link](https://www.memecreator.org/static/images/templates/1499417.jpg)
+    - Harry Potter Image from landing page [Link](https://i2-prod.staffordshire-live.co.uk/incoming/article1931897.ece/ALTERNATES/s1200/0_HARRY-POTTER-AND-THE-HALF-BLOOD-PRINCE.jpg)
+    - Hermione Granger [Link](https://i.ytimg.com/vi/SzUaInrqZQA/maxresdefault.jpg)
     - Draco Malfloy Image from landing page [Link](https://cdn.mos.cms.futurecdn.net/er4HXc7zSAUfyCkQbcpauU.jpg)
     - Nav Bar Dobby with a sock [Link](https://www.kindpng.com/picc/m/726-7266773_dobby-harrypotter-hp-hogwarts-dobby-from-harry-potter.png)
     - Cute drawn Dobby [Link](https://rlv.zcache.com/dobby_cartoon_character_art_classic_round_sticker-r29f4846ad87d4bdd989d776e74e6b450_0ugmp_8byvr_704.webp)
