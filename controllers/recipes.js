@@ -10,7 +10,7 @@ const { Op } = require("sequelize");
 const { default: getModuleDependencies } = require('tailwindcss/lib/lib/getModuleDependencies')
 
 // show recipes home page
-router.get("/", async function(req,res){
+router.get("/home", async function(req,res){
     if (!res.locals.user){
         res.render("users/login.ejs", {msg: "please login to continue"})
         return
@@ -30,47 +30,6 @@ router.get("/", async function(req,res){
     }
 })
 
-
-router.get("/search", async function (req, res) {
-    try {
-        if (!res.locals.user){
-            res.render("users/login.ejs", {msg: "please login to continue"})
-            return
-        }
-        // console.log(req.query.searchInput)
-        // console.log(req.body.searchInput)
-        const searchedRecipe = req.query.searchInput
-        const searchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchedRecipe}&apiKey=${process.env.SPOON_API_KEY}&number=20`
-        const searchResults = await axios.get(searchURL)
-
-        res.render("recipes/searchByRecipes.ejs", { searchedRecipe, searchResults: searchResults.data.results })
-
-    } catch (error) {
-        console.warn(error)
-    }
-})
-
-router.get("/viewSavedRecipe/:id", async function(req,res){
-    try {
-        if (!res.locals.user){
-            res.render("users/login.ejs", {msg: "please login to continue"})
-            return
-        }
-        // console.log(req.body.recipeId)
-        let savedRecipeToView = await db.savedrecipe.findOne({
-            where:{
-                id: req.params.id},
-                include: [{
-                   all:true, nested:true
-                }]
-            })
-            savedRecipeToView = JSON.parse(JSON.stringify(savedRecipeToView))
-            console.log(savedRecipeToView)
-        res.render("recipes/viewsavedrecipe.ejs", {recipedata:savedRecipeToView})
-    } catch (error) {
-        console.warn(error)
-    }
-})
 
 // add existing saved recipe to favorites
 router.post("/addSavedToFavorites", async function(req,res){
@@ -98,33 +57,60 @@ router.post("/addSavedToFavorites", async function(req,res){
             recipeAdded.addIngredient(ingredient)
         })
         console.log(savedRecipeToAdd)
-        res.redirect("/profile")
+        res.redirect("/recipes/home")
     } catch (error) {
         console.warn(error)
     }
 })
 
-// view recipe 
-router.get("/view", async function (req, res) {
+// views all saved recipes for user
+router.get("/savedrecipes", async function (req, res) {
+    console.warn("MEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEP 🔥")
     try {
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
             return
         }
-        const searchedResult = JSON.parse(req.query.result)
-        const viewRecipebyIdURL = `https://api.spoonacular.com/recipes/${searchedResult.id}/information?includeNutrition=false&apiKey=${process.env.SPOON_API_KEY}`
-        const viewRecipeResult = await axios.get(viewRecipebyIdURL)
-    
-        res.render("recipes/viewRecipe.ejs", { viewRecipeResult: viewRecipeResult.data, searchedResult })
+
+        // only uses user cookie id so there is limited risk of hacking from the URL manipulation
+        const allsavedrecipes = await db.user.findAll({
+            where: {
+                id: res.locals.user.dataValues.id
+            }, include: [{
+                all: true, nested: true
+            }]
+        })
+        // console.log(allsavedrecipes[0].dataValues.savedrecipes[0])
+        res.render("recipes/savedRecipes.ejs", { allsavedrecipes: allsavedrecipes[0].dataValues.savedrecipes })
     } catch (error) {
         console.warn(error)
     }
-
 })
 
+router.get("/saved/:id", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        }
+        // console.log(req.body.recipeId)
+        let savedRecipeToView = await db.savedrecipe.findOne({
+            where:{
+                id: req.params.id},
+                include: [{
+                   all:true, nested:true
+                }]
+            })
+            savedRecipeToView = JSON.parse(JSON.stringify(savedRecipeToView))
+            console.log(savedRecipeToView)
+        res.render("recipes/viewsavedrecipe.ejs", {recipedata:savedRecipeToView})
+    } catch (error) {
+        console.warn(error)
+    }
+})
 
 //saves recipe from API to db
-router.post("/saved", async function (req, res) {
+router.post("/save", async function (req, res) {
     try {
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
@@ -186,8 +172,6 @@ router.post("/saved", async function (req, res) {
                 let foodnutrients = usdaIng.foodNutrients
                 // console.log(ingredientsToSearch[i].nameClean,":", usdaIng)
                 // console.log(ingredientsToSearch[i].nameClean,":", foodnutrients)
-
-
 
                 protein = foodnutrients.filter(nutrient => nutrient.nutrientNumber === '203')
                 if (protein.length === 0) {
@@ -265,33 +249,13 @@ router.post("/saved", async function (req, res) {
                 })
             }
         }
-        res.redirect("saved")
+        res.redirect("/recipes/savedrecipes")
     } catch (error) {
         console.warn(error)
     }
 })
 
-// views all saved recipes for user
-router.get("/saved", async function (req, res) {
-    try {
-        if (!res.locals.user){
-            res.render("users/login.ejs", {msg: "please login to continue"})
-            return
-        }
-        // only uses user cookie id so there is limited risk of hacking from the URL manipulation
-        const allsavedrecipes = await db.user.findAll({
-            where: {
-                id: res.locals.user.dataValues.id
-            }, include: [{
-                all: true, nested: true
-            }]
-        })
-        console.log(allsavedrecipes[0].dataValues.savedrecipes[0])
-        res.render("recipes/savedRecipes.ejs", { allsavedrecipes: allsavedrecipes[0].dataValues.savedrecipes })
-    } catch (error) {
-        console.warn(error)
-    }
-})
+
 
 
 // removes saved recipe from user list
@@ -302,7 +266,6 @@ router.delete("/saved/:id", async function (req, res) {
             return
         }
 
-        
         console.log("saved recipe id:", req.params.id)
         let user = await db.user.findByPk(res.locals.user.dataValues.id)
         // user = JSON.parse(JSON.stringify(user))
@@ -316,7 +279,7 @@ router.delete("/saved/:id", async function (req, res) {
             }
         })
     
-        res.redirect("/recipes/saved")
+        res.redirect("/recipes/savedrecipes")
     } catch (error) {
         console.warn(error)
     }

@@ -5,16 +5,16 @@
     <ul class="flex justify-around ml-<%=ulm%>">
         <!-- if the user is logged in -->
         <% if (user) { %>
-            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes">Home</a></li>
+            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes/home">Home</a></li>
             <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/edit">Account</a></li>
-            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes/saved">Saved Recipes</a></li>
+            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes/savedrecipes">Saved Recipes</a></li>
         <%}%>
     </ul>
     
     <ul class="flex justify-around mr-<%=ulm%>">
         <% if (user) { %>
             <li class="mx-<%=limx%>">
-                <form method="GET" action="/recipes/search">
+                <form method="GET" action="/search">
                     <input class="border rounded text-center" id="searchInput" type="text" name="searchInput" placeholder="Search a Recipe!">
                 </form>
             </li>

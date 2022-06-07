@@ -118,7 +118,7 @@ router.post("/login", async function(req,res){
         if (compare) {
             const encryptedId = cryptoJS.AES.encrypt(foundUser.id.toString(), process.env.ENC_KEY).toString()
             res.cookie("userId", encryptedId)
-            res.redirect("/recipes")
+            res.redirect("/recipes/home")
         } else {
             res.render("users/login.ejs",{msg})
             return
@@ -154,7 +154,7 @@ router.post("/new", async function(req,res){
         if (userCreated) {
             const encryptedId = cryptoJS.AES.encrypt(user.id.toString(), process.env.ENC_KEY).toString()
             res.cookie("userId", encryptedId)
-            res.redirect("/profile")
+            res.redirect("/recipes/home")
         } else {
             res.render("users/login.ejs", {msg: "email exists in database already 🤦‍♂️"})
         }

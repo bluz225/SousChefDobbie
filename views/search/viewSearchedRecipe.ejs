@@ -4,7 +4,7 @@
             <%=viewRecipeResult.title%>
         </h2>
         <div>
-            <form method="POST" action="/recipes/saved">
+            <form method="POST" action="/recipes/save">
                 <input name="recipe" value="<%= JSON.stringify(viewRecipeResult)%>" hidden>
                 <input name="imgURL" value="<%= JSON.stringify(searchedResult.image)%>" hidden>
                 <button class="text-center py-1 my-2 ml-5 w-[10rem] text-white border rounded-3xl bg-slate-500 hover:bg-slate-400" type="submit">Add to

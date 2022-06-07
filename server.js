@@ -44,7 +44,7 @@ app.use( async (req,res,next)=>{
 //render landing page
 app.get("/", function(req,res){
   if (res.locals.user){3
-    res.redirect("/profile")
+    res.redirect("/recipes/home")
   } else {
     res.render("index.ejs")
   }
@@ -53,7 +53,7 @@ app.get("/", function(req,res){
 
 // controller middleware
 app.use('/users', require('./controllers/users'))
-app.use('/profile', require('./controllers/profile'))
+app.use('/search', require('./controllers/search'))
 app.use('/recipes', require('./controllers/recipes'))
 
 app.use((req,res,next) => {
