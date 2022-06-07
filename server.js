@@ -41,7 +41,7 @@ app.use( async (req,res,next)=>{
   }
 })
 
-//render home page
+//render landing page
 app.get("/", function(req,res){
   if (res.locals.user){3
     res.redirect("/profile")

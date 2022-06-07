@@ -5,6 +5,91 @@ let router = express.Router()
 const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 
+
+// edit profile route
+router.get("/edit", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        } else {
+            let user = await db.user.findByPk(res.locals.user.dataValues.id)
+            user = JSON.parse(JSON.stringify(user))
+            delete user["id"]
+            delete user["password"]
+            delete user["createdAt"]
+            delete user["updatedAt"]
+            res.render("users/edit.ejs",{user, msg: null})
+        }
+    } catch (error) {
+        console.warn(error)
+    }
+
+})
+
+// route to edit accout info
+router.put("/edit", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        } else {
+            let user = await db.user.findByPk(res.locals.user.dataValues.id)
+            user.set({
+                firstName: req.body.firstName,
+                lastName: req.body.lastName,
+                email: req.body.email,
+            })
+            await user.save()
+            res.redirect("edit")
+
+        }
+    } catch (error) {
+        console.warn(error)
+    }  
+})
+
+// route to change the password
+router.put("/changepassword", async function(req,res){
+    try {
+        if (!res.locals.user){
+            res.render("users/login.ejs", {msg: "please login to continue"})
+            return
+        } else {
+            let user = await db.user.findByPk(res.locals.user.dataValues.id)
+            cleanuser = JSON.parse(JSON.stringify(user))
+            delete cleanuser["id"]
+            delete cleanuser["password"]
+            delete cleanuser["createdAt"]
+            delete cleanuser["updatedAt"]
+            let msg
+            const compare = bcrpyt.compareSync(req.body.cpw,user.password)
+            if (compare){
+                if (req.body.pw1 === req.body.pw2){
+                    const hashedPassword = bcrpyt.hashSync(req.body.pw1, Number(process.env.SALT))
+                    user.set({
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName,
+                        email: req.body.email,
+                        password:hashedPassword
+                    })
+                    await user.save()
+                    msg = "password has been changed"
+                } else {
+                    msg = "the new passwords are not the same, please try again"
+                }                
+            } else {
+                msg = "the current password provided was incorrect, please try again"
+            }
+            res.redirect("edit")
+
+        }
+    } catch (error) {
+        console.warn(error)
+    }
+    
+})
+
 // login get routes
 router.get("/login", function(req,res){
     res.render("users/login.ejs", {msg: null})
@@ -12,8 +97,6 @@ router.get("/login", function(req,res){
 
 // login post route
 router.post("/login", async function(req,res){
-    // res.redirect("/profile")
-
     try {
         // look up the user in the db based on their emails
         const foundUser = await db.user.findOne({
@@ -35,7 +118,7 @@ router.post("/login", async function(req,res){
         if (compare) {
             const encryptedId = cryptoJS.AES.encrypt(foundUser.id.toString(), process.env.ENC_KEY).toString()
             res.cookie("userId", encryptedId)
-            res.redirect("/profile")
+            res.redirect("/recipes")
         } else {
             res.render("users/login.ejs",{msg})
             return
@@ -45,13 +128,13 @@ router.post("/login", async function(req,res){
     }
 })
 
-// signup get routes
-router.get("/signup", function(req,res){
+// snew user get routes
+router.get("/new", function(req,res){
     res.render("users/signup.ejs")
 })
 
-// signup post route
-router.post("/signup", async function(req,res){
+// new user post route
+router.post("/new", async function(req,res){
     // res.render("profile/showprofile.ejs")
     try {
         //hash password
@@ -86,8 +169,6 @@ router.get("/logout",(req,res)=>{
     // redirect to root
     res.clearCookie("userId")
     res.redirect("login")
-
-    
 })
 
 module.exports = router

@@ -5,8 +5,8 @@
     <ul class="flex justify-around ml-<%=ulm%>">
         <!-- if the user is logged in -->
         <% if (user) { %>
-            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/profile">Profile</a></li>
-            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/profile/edit">Account</a></li>
+            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes">Home</a></li>
+            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/edit">Account</a></li>
             <li class="mx-<%=limx%>"><a class="hover:text-white" href="/recipes/saved">Saved Recipes</a></li>
         <%}%>
     </ul>
@@ -14,13 +14,13 @@
     <ul class="flex justify-around mr-<%=ulm%>">
         <% if (user) { %>
             <li class="mx-<%=limx%>">
-                <form method="POST" action="/recipes/search">
+                <form method="GET" action="/recipes/search">
                     <input class="border rounded text-center" id="searchInput" type="text" name="searchInput" placeholder="Search a Recipe!">
                 </form>
             </li>
             <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/logout">Log Out</a></li>
         <%} else {%>
-            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/signup">Sign Up</a></li>
+            <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/new">Sign Up</a></li>
             <li class="mx-<%=limx%>"><a class="hover:text-white" href="/users/login">Log In</a></li>
         <%}%>
     </ul>

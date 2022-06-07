@@ -1,7 +1,7 @@
 <div class="flex flex-col items-center justify-center h-[30vh] mt-10">
     <div class="flex flex-col justify-center h-80 w-[27em] bg-[#E5E5E5] border-3 rounded-3xl">
         <div class="mx-7">
-            <form method="POST" action="/profile/edit?_method=PUT">
+            <form method="POST" action="/users/edit?_method=PUT">
                 <div class="grid grid-rows-1 grid-cols-2 my-1">
                     <label for="firstName">Change your First Name:</label>
                     <input id="firstName" type="text" name="firstName" value="<%=user.firstName%>" required>
@@ -33,7 +33,7 @@
         <div class="flex flex-col items-center justify-center h-[30vh] mt-10">
             <div class="flex flex-col justify-center h-80 w-[27em] bg-[#E5E5E5] border-3 rounded-3xl py-0.5">
                 <div class="mx-7">
-                    <form method="POST" action="/profile/changepassword?_method=PUT">
+                    <form method="POST" action="/users/changepassword?_method=PUT">
                         <div class="grid grid-rows-1 grid-cols-2 my-1">
                             <label for="cpw">Type in your password:</label>
                             <input id="cpw" type="password" name="cpw" required>

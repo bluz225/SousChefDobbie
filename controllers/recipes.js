@@ -9,15 +9,38 @@ const { sequelize } = require('../models')
 const { Op } = require("sequelize");
 const { default: getModuleDependencies } = require('tailwindcss/lib/lib/getModuleDependencies')
 
-router.post("/search", async function (req, res) {
+// show recipes home page
+router.get("/", async function(req,res){
+    if (!res.locals.user){
+        res.render("users/login.ejs", {msg: "please login to continue"})
+        return
+    } else {
+        let allSavedRecipesOtherThan = await db.savedrecipe.findAll({
+            where:{
+                userId:{[Op.not]:`${res.locals.user.dataValues.id}`}
+            }
+        })
+        allSavedRecipesOtherThan = JSON.parse(JSON.stringify(allSavedRecipesOtherThan))
+        allSavedRecipesOtherThan.forEach(function(recipe){
+            delete recipe["userId"]
+        })
+        
+    // console.log(allSavedRecipesOtherThan)
+        res.render("recipes/home.ejs", {allSavedRecipesOtherThan})
+    }
+})
+
+
+router.get("/search", async function (req, res) {
     try {
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
             return
         }
+        // console.log(req.query.searchInput)
         // console.log(req.body.searchInput)
-        const searchedRecipe = req.body.searchInput
-        const searchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${req.body.searchInput}&apiKey=${process.env.SPOON_API_KEY}&number=20`
+        const searchedRecipe = req.query.searchInput
+        const searchURL = `https://api.spoonacular.com/recipes/complexSearch?query=${searchedRecipe}&apiKey=${process.env.SPOON_API_KEY}&number=20`
         const searchResults = await axios.get(searchURL)
 
         res.render("recipes/searchByRecipes.ejs", { searchedRecipe, searchResults: searchResults.data.results })
@@ -82,13 +105,13 @@ router.post("/addSavedToFavorites", async function(req,res){
 })
 
 // view recipe 
-router.post("/view", async function (req, res) {
+router.get("/view", async function (req, res) {
     try {
         if (!res.locals.user){
             res.render("users/login.ejs", {msg: "please login to continue"})
             return
         }
-        const searchedResult = JSON.parse(req.body.result)
+        const searchedResult = JSON.parse(req.query.result)
         const viewRecipebyIdURL = `https://api.spoonacular.com/recipes/${searchedResult.id}/information?includeNutrition=false&apiKey=${process.env.SPOON_API_KEY}`
         const viewRecipeResult = await axios.get(viewRecipebyIdURL)
     
