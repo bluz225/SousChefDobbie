@@ -5,6 +5,26 @@ Welcome to Sous Chef Dobbie, your most (somewhat) useful cooking assistant, he c
 
 Check out Sous Chef Dobbie [Here](https://souschefdobbie.herokuapp.com/)
 
+## Installation Instructions (From Github)
+- Fork and clone onto your local
+- while within your local direct that you cloned to
+    - npm i OR npm install in relevant directory
+    - create .env file and add the following variables
+        - SALT=""
+        - ENC_KEY=""
+        - SPOON_API_KEY=""
+        - USDA_API_KEY=""
+    - enter what ever number you would like for SALT, suggest between 10 to 12
+    - enter whatever string you would like into ENC_KEY
+    - get a SPOONACULAR api key from [Here](https://spoonacular.com/food-api)
+        - copy and paste your api key within "" for SPOON_API_KEY
+    - get a USDA api key from [Here](https://www.ers.usda.gov/developer/data-apis/)
+        - copy and paste your api key within "" for USDA_API_KEY
+    - run sequelize db:migrate
+    - run nodemon in terminal
+    - open localhost:9000 on browser
+    - Enjoy!
+
 ## Post Project Reflection:
 The complexity of this full stack project was greater than I had anticipated. There were a couple of things I was unable to get to due to inadequate initial planning. For example, I decided to incorporate the ability create and edit recipes but was not able to implement the creation of recipes. I also focused too much on incorporating the USDA api to obtain nutrient (calories, carbs, fat, and protein) but did not implement these features to be calculated. 
 
@@ -87,17 +107,31 @@ Wire Frames:
 Planned RESTful Routes:
 | VERB | URL pattern | Action \(CRUD\) | Description |
 | :--- | :--- | :--- | :--- |
-| GET | / |\(Read\) | lists all dinosaurs |
-| GET | /logout |\(Read\) | logout |
-| GET | /user/login/ |\(Read\) | login landing page |
-| GET | /user/login/check |\(Read\) | ROUTE - check authentication and authorize |
-| GET | /signup |\(READ\) | Show Sign Up Page |
-| POST | /signup/complete |\(Create\) | Create User/authentication and authorization |
-| Get | /profile/ |\(Read\) | show profile page |
-| PUT | /profile/edit |\(Update\) | ROUTE - make edits to profile page |
-| GET | /search/recipes |\(Read\) | Search and show recipes from API |
-| GET | /recipes/saved |\(Read\) | Search and show saved recipes |
-| GET | /recipes/view |\(Read\) | show recipe details |
+| GET | /users/edit |\(Read\) | Show Account Edit Page |
+| PUT | /users/edit |\(Update\) | Route to Update Account Info in DB |
+| PUT | /users/changepassword |\(Update\) | Route to Update Password in DB |
+| GET | /users/login |\(Read\) | login landing page |
+| POST | /users/login|\(Read\) | Check authentication and authorize |
+| GET | /users/new |\(READ\) | Show Sign Up Page |
+| POST | /users/new |\(Create\) | Create User/authentication and authorization |
+| GET | /users/logout |\(Read\) | logout |
+| :--- | :--- | :--- | :--- |
+| GET | /recipes/home |\(Read\) | Shows Recipes Home Page |
+| POST | /recipes/addSavedToFavorites |\(Create\) | Add existing saved recipe to favorites |
+| GET | /recipes/savedrecipes |\(Read\) | views all saved recipe for user based on current cookie |
+| GET | /recipes/saved/:id |\(Read\) | show for saved recipe based on DB id |
+| POST | /recipes/save |\(Create\) | Saves recipe from API to db |
+| DELETE | /saved/:id |\(Delete\) | Removes saved recipe from user list |
+| GET | /editsaved/:id |\(Read\) | Show saved recipe to be edited based on db savedrecipe id |
+| PUT | /editsaved/ |\(Update\) | Update edit saved recipe |
+| :--- | :--- | :--- | :--- |
+| GET | /search/ |\(Read\) | show search results from API |
+| GET | /search/view |\(Read\) | show singular recipe search results (API) |
+
+
+
+
+
 
 ## Planned MVP User Process Map:
 ![Planned Process Map](./Planning/planningMVP-UserProcessMap.PNG)

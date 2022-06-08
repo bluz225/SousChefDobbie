@@ -6,7 +6,7 @@ const cryptoJS = require("crypto-js")
 const bcrpyt = require("bcryptjs")
 
 
-// edit profile route
+// GET route to show account edit
 router.get("/edit", async function(req,res){
     try {
         if (!res.locals.user){
@@ -27,7 +27,7 @@ router.get("/edit", async function(req,res){
 
 })
 
-// route to edit accout info
+// Put route to edit accout info
 router.put("/edit", async function(req,res){
     try {
         if (!res.locals.user){

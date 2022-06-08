@@ -87,6 +87,7 @@ router.get("/savedrecipes", async function (req, res) {
     }
 })
 
+// GET route show for saved recipe based on DB id
 router.get("/saved/:id", async function(req,res){
     try {
         if (!res.locals.user){
@@ -285,6 +286,7 @@ router.delete("/saved/:id", async function (req, res) {
     }
 })
 
+// show saved recipe to be edited based on db savedrecipe id
 router.get("/editsaved/:id", async function (req, res) {
     try {
         const editRecipe = await db.savedrecipe.findOne({
@@ -321,6 +323,8 @@ router.get("/editsaved/:id", async function (req, res) {
    
 })
 
+
+// update edit saved recipe
 router.put("/editsaved/", async function (req, res) {
     try {
         if (!res.locals.user){
