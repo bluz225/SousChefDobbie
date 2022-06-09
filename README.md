@@ -20,6 +20,11 @@ Check out Sous Chef Dobbie [Here](https://souschefdobbie.herokuapp.com/)
         - copy and paste your api key within "" for SPOON_API_KEY
     - get a USDA api key from [Here](https://www.ers.usda.gov/developer/data-apis/)
         - copy and paste your api key within "" for USDA_API_KEY
+    - create a database in postgres called "scd_db"
+    - create/set up the config/config.json
+        - username/password per postgres account
+        - database: "scd_db"
+        - dialect: "postgres"
     - run sequelize db:migrate
     - run nodemon in terminal
     - open localhost:9000 on browser
